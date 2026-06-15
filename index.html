@@ -6,100 +6,100 @@
 <title>Gym Tracker</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
-:root{
-  --lime:#C8FF3D;
-  --lime-dark:#A8DD20;
-  --bg:#0A0A0A;
-  --card:#161616;
-  --card-2:#1E1E1E;
-  --border:#2A2A2A;
-  --text:#FFFFFF;
-  --text-dim:#888;
-  --green:#4ADE80;
-}
-html,body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-body{padding-bottom:90px;max-width:500px;margin:0 auto;position:relative}
-.header{padding:20px 20px 10px;display:flex;justify-content:space-between;align-items:center}
-.greeting{font-size:13px;color:var(--text-dim)}
-.greeting strong{color:#fff;font-size:18px;display:block;margin-top:2px}
-.trophy{width:44px;height:44px;background:var(--card);border-radius:14px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
-.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px;margin-top:15px}
-.stat-card{background:var(--card);border-radius:18px;padding:14px;border:1px solid var(--border)}
-.stat-label{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}
-.stat-value{font-size:22px;font-weight:700;margin-top:4px}
-.stat-value span{font-size:13px;color:var(--text-dim);font-weight:400}
-.activity-card{margin:15px 20px 0;background:var(--card);border-radius:22px;padding:18px;border:1px solid var(--border)}
-.activity-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.activity-title{font-weight:600;font-size:15px}
-.see-all{font-size:12px;color:var(--lime);background:none;border:none;cursor:pointer}
-.activity-stats{display:flex;justify-content:space-between;align-items:center}
-.activity-left div{margin-bottom:8px}
-.activity-left .lbl{font-size:11px;color:var(--text-dim)}
-.activity-left .val{font-size:15px;font-weight:600}
-.activity-left .val span{color:var(--text-dim);font-weight:400;font-size:12px}
-.ring{width:75px;height:75px;position:relative}
-.ring svg{transform:rotate(-90deg)}
-.ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
-.day-tabs-wrap{padding:18px 20px 10px;overflow-x:auto;scrollbar-width:none}
-.day-tabs-wrap::-webkit-scrollbar{display:none}
-.day-tabs{display:flex;gap:8px;width:max-content}
-.day-tab{padding:10px 16px;background:var(--card);color:var(--text-dim);border:1px solid var(--border);border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s}
-.day-tab.active{background:var(--lime);color:#000;border-color:var(--lime)}
-.day-tab.done{border-color:var(--green)}
-.day-tab.done::after{content:" ✓";color:var(--green)}
-.day-tab.active.done::after{color:#000}
-.session-toggle{display:flex;gap:6px;background:var(--card);border-radius:14px;padding:4px;margin:0 20px 15px;border:1px solid var(--border)}
-.session-btn{flex:1;padding:10px;background:none;border:none;color:var(--text-dim);font-size:13px;font-weight:600;border-radius:10px;cursor:pointer;transition:all 0.2s}
-.session-btn.active{background:var(--lime);color:#000}
-.workout-header{padding:5px 20px 15px;display:flex;justify-content:space-between;align-items:center}
-.workout-title{font-size:20px;font-weight:700}
-.workout-subtitle{font-size:12px;color:var(--text-dim);margin-top:3px}
-.timer-pill{background:var(--card);border:1px solid var(--border);padding:8px 14px;border-radius:12px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
-.timer-pill.active{background:var(--lime);color:#000;border-color:var(--lime)}
+:root{--lime:#C8FF3D;--bg:#0A0A0A;--card:#161616;--card2:#1E1E1E;--border:#2A2A2A;--green:#4ADE80;--text-dim:#888}
+html,body{background:var(--bg);color:#fff;min-height:100vh;overflow-x:hidden}
+body{padding-bottom:90px;max-width:500px;margin:0 auto}
+
+/* NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;background:var(--card);border-top:1px solid var(--border);padding:12px 20px;display:flex;justify-content:space-around;align-items:center;z-index:50}
+.nav-btn{background:none;border:none;color:var(--text-dim);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;cursor:pointer;padding:6px 12px}
+.nav-btn.active{color:var(--lime)}
+.nav-btn svg{width:22px;height:22px}
+.nav-add{width:50px;height:50px;background:var(--lime);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#000;font-size:24px;border:none;cursor:pointer;margin-top:-20px;box-shadow:0 5px 20px rgba(200,255,61,0.4)}
+
+/* PAGES */
+.page{display:none;min-height:calc(100vh - 90px)}
+.page.active{display:block}
+
+/* ===== HOME PAGE ===== */
+.home-header{padding:24px 20px 10px;display:flex;justify-content:space-between;align-items:center}
+.home-greeting{font-size:13px;color:var(--text-dim)}
+.home-greeting strong{color:#fff;font-size:20px;display:block;margin-top:2px}
+
+/* BIG STREAK RING */
+.streak-section{display:flex;flex-direction:column;align-items:center;padding:20px 20px 10px;position:relative}
+.big-ring-wrap{position:relative;width:220px;height:220px}
+.big-ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-track{fill:none;stroke:#1a1a1a;stroke-width:14}
+.ring-glow{fill:none;stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset 0.8s cubic-bezier(.4,0,.2,1)}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-streak-num{font-size:52px;font-weight:800;color:var(--lime);line-height:1;letter-spacing:-2px}
+.ring-streak-label{font-size:12px;color:var(--text-dim);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+.ring-streak-sub{font-size:11px;color:#555;margin-top:2px}
+
+/* 8 DAY TABS GRID */
+.days-grid-section{padding:0 20px 10px}
+.days-grid-title{font-size:12px;text-transform:uppercase;color:var(--text-dim);letter-spacing:1px;margin-bottom:12px;text-align:center}
+.days-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.day-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all 0.2s;position:relative}
+.day-card.active-day{border-color:var(--lime);background:rgba(200,255,61,0.06)}
+.day-card.done-day{border-color:var(--green);background:rgba(74,222,128,0.06)}
+.day-card-num{font-size:10px;color:var(--text-dim);font-weight:600;text-transform:uppercase}
+.day-card-mini-ring{width:44px;height:44px;position:relative}
+.day-card-mini-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.day-card-emoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+.day-card-label{font-size:10px;color:var(--text-dim);text-align:center;line-height:1.3}
+.day-card.done-day .day-card-label{color:var(--green)}
+
+/* ===== DAY DETAIL PAGE ===== */
+.day-detail-header{padding:20px 20px 10px;display:flex;align-items:center;gap:12px}
+.back-btn{width:38px;height:38px;background:var(--card);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.day-detail-title{font-size:20px;font-weight:700}
+.day-detail-sub{font-size:12px;color:var(--text-dim);margin-top:2px}
+
+/* Day progress ring */
+.day-ring-section{display:flex;flex-direction:column;align-items:center;padding:10px 20px 20px}
+.day-ring-wrap{position:relative;width:140px;height:140px}
+.day-ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.day-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.day-ring-pct{font-size:30px;font-weight:800;color:var(--lime)}
+.day-ring-lbl{font-size:10px;color:var(--text-dim)}
+
+/* Session tabs */
+.session-tabs{display:flex;gap:8px;margin:0 20px 16px;background:var(--card);border-radius:14px;padding:4px;border:1px solid var(--border)}
+.sess-btn{flex:1;padding:10px;background:none;border:none;color:var(--text-dim);font-size:13px;font-weight:600;border-radius:10px;cursor:pointer;transition:all 0.2s}
+.sess-btn.active{background:var(--lime);color:#000}
+.sess-btn.half-done{color:var(--green)}
+
+/* Workout timer pill */
+.timer-row{display:flex;justify-content:space-between;align-items:center;padding:0 20px 14px}
+.workout-name{font-size:15px;font-weight:600}
+.timer-pill{background:var(--card);border:1px solid var(--border);padding:7px 13px;border-radius:12px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.timer-pill.running{background:var(--lime);color:#000;border-color:var(--lime)}
+
+/* Exercises */
 .exercises{padding:0 20px}
 .exercise{background:var(--card);border-radius:20px;padding:16px;margin-bottom:12px;border:1px solid var(--border);transition:all 0.3s}
-.exercise.completed{border-color:var(--green);opacity:0.7}
-.exercise.active{border-color:var(--lime)}
-.ex-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.ex-name{font-size:15px;font-weight:600;flex:1}
+.exercise.ex-done{border-color:var(--green);opacity:0.7}
+.exercise.ex-active{border-color:var(--lime)}
+.ex-head{display:flex;align-items:center;margin-bottom:12px}
 .ex-num{width:28px;height:28px;background:var(--lime);color:#000;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-right:10px;flex-shrink:0}
+.ex-name{font-size:15px;font-weight:600}
 .sets{display:flex;flex-direction:column;gap:8px}
-.set-row{display:flex;align-items:center;gap:10px;padding:10px;background:var(--card-2);border-radius:12px}
-.set-row.done{background:rgba(74,222,128,0.1)}
-.set-num{font-size:12px;color:var(--text-dim);width:30px;font-weight:600}
+.set-row{display:flex;align-items:center;gap:10px;padding:10px;background:var(--card2);border-radius:12px}
+.set-row.s-done{background:rgba(74,222,128,0.1)}
+.set-num{font-size:12px;color:var(--text-dim);width:32px;font-weight:600}
 .set-vals{flex:1;display:flex;gap:8px}
 .set-val{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
 .set-val .num{font-size:14px;font-weight:600}
 .set-val .unit{font-size:10px;color:var(--text-dim)}
 .set-check{width:34px;height:34px;border-radius:10px;border:2px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
-.set-check.done{background:var(--lime);border-color:var(--lime)}
-.set-check.done::after{content:"✓";color:#000;font-weight:bold;font-size:16px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;background:var(--card);border-top:1px solid var(--border);padding:12px 20px;display:flex;justify-content:space-around;align-items:center;z-index:50}
-.nav-btn{background:none;border:none;color:var(--text-dim);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;cursor:pointer;padding:6px 12px}
-.nav-btn.active{color:var(--lime)}
-.nav-btn svg{width:22px;height:22px}
-.nav-add{width:50px;height:50px;background:var(--lime);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#000;font-size:24px;font-weight:300;border:none;cursor:pointer;margin-top:-20px;box-shadow:0 5px 20px rgba(200,255,61,0.4)}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px)}
-.modal-overlay.show{display:flex}
-.modal{background:var(--card);border-radius:28px;padding:30px 24px;width:100%;max-width:340px;border:1px solid var(--border);text-align:center;animation:pop 0.3s}
-@keyframes pop{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
-.modal-icon{width:80px;height:80px;border-radius:50%;background:rgba(200,255,61,0.15);border:2px solid var(--lime);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:36px}
-.modal-title{font-size:18px;font-weight:700;margin-bottom:8px}
-.modal-sub{font-size:13px;color:var(--text-dim);margin-bottom:20px}
-.timer-display{font-size:54px;font-weight:700;color:var(--lime);font-variant-numeric:tabular-nums;margin:10px 0 20px;letter-spacing:-1px}
-.modal-btns{display:flex;gap:10px}
-.btn{padding:14px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;border:none;flex:1;transition:all 0.2s}
-.btn-primary{background:var(--lime);color:#000}
-.btn-secondary{background:var(--card-2);color:#fff;border:1px solid var(--border)}
-.btn-danger{background:#3a1010;color:#ff6b6b;border:1px solid #5a2020}
-.edit-input{width:100%;background:var(--bg);border:2px solid var(--lime);border-radius:14px;padding:18px;font-size:28px;font-weight:700;color:#fff;text-align:center;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
-.edit-input::-webkit-outer-spin-button,.edit-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.edit-label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.page{display:none}
-.page.active{display:block}
+.set-check.ck-done{background:var(--lime);border-color:var(--lime)}
+.set-check.ck-done::after{content:"✓";color:#000;font-weight:bold;font-size:16px}
+
+/* ===== WEIGHT PAGE ===== */
 .weight-card{margin:0 20px 12px;background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border)}
 .weight-current{font-size:38px;font-weight:700;color:var(--lime)}
-.weight-current span{font-size:16px;color:var(--text-dim)}
 .weight-add{display:flex;gap:8px;margin-top:14px}
 .weight-add input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;color:#fff;font-size:16px}
 .weight-add button{padding:12px 18px;background:var(--lime);color:#000;border:none;border-radius:12px;font-weight:600;cursor:pointer}
@@ -111,238 +111,549 @@ canvas{width:100%;height:200px}
 .log-date{font-size:12px;color:var(--text-dim)}
 .log-kg{font-size:16px;font-weight:600}
 .log-del{background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:18px;padding:4px 8px}
+
+/* ===== SETTINGS PAGE ===== */
 .settings-section{margin:0 20px 16px;background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border)}
 .settings-section h3{font-size:14px;margin-bottom:12px}
 .settings-section p{font-size:12px;color:var(--text-dim);margin-bottom:14px;line-height:1.5}
 .section-title{padding:0 20px;font-size:12px;text-transform:uppercase;color:var(--text-dim);letter-spacing:1px;margin:20px 0 10px}
+.page-header{padding:24px 20px 10px}
+.page-header strong{font-size:20px}
+.page-header .sub{font-size:13px;color:var(--text-dim)}
+
+/* BUTTONS */
+.btn{padding:14px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;border:none;flex:1;transition:all 0.2s}
+.btn-primary{background:var(--lime);color:#000}
+.btn-secondary{background:var(--card2);color:#fff;border:1px solid var(--border)}
+.btn-danger{background:#3a1010;color:#ff6b6b;border:1px solid #5a2020}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:flex-end;justify-content:center;padding:0;backdrop-filter:blur(10px)}
+.modal-overlay.show{display:flex}
+.modal{background:var(--card);border-radius:28px 28px 0 0;padding:30px 24px 40px;width:100%;max-width:500px;border-top:1px solid var(--border);text-align:center;animation:slideUp 0.3s}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-icon{width:80px;height:80px;border-radius:50%;background:rgba(200,255,61,0.15);border:2px solid var(--lime);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:36px}
+.modal-title{font-size:20px;font-weight:700;margin-bottom:8px}
+.modal-sub{font-size:13px;color:var(--text-dim);margin-bottom:20px}
+.timer-display{font-size:60px;font-weight:800;color:var(--lime);font-variant-numeric:tabular-nums;margin:10px 0 20px;letter-spacing:-2px}
+.modal-btns{display:flex;gap:10px}
+
+/* CONGRATS MODAL */
+.congrats-overlay{position:fixed;inset:0;background:var(--lime);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;animation:fadeIn 0.3s}
+.congrats-overlay.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.congrats-check{width:120px;height:120px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:30px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.congrats-check svg{width:60px;height:60px}
+.congrats-title{font-size:32px;font-weight:800;color:#000;margin-bottom:10px}
+.congrats-sub{font-size:14px;color:rgba(0,0,0,0.6);margin-bottom:40px;text-align:center;padding:0 30px;line-height:1.5}
+.congrats-close{background:#000;color:var(--lime);border:none;padding:18px 60px;border-radius:18px;font-size:16px;font-weight:700;cursor:pointer}
+
+/* EDIT MODAL */
+.edit-input{width:100%;background:var(--bg);border:2px solid var(--lime);border-radius:14px;padding:18px;font-size:28px;font-weight:700;color:#fff;text-align:center;-moz-appearance:textfield}
+.edit-input::-webkit-outer-spin-button,.edit-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.edit-label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+
 .loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;color:var(--lime);font-size:14px}
 </style>
 </head>
 <body>
-
 <div class="loading" id="loading">Loading...</div>
 
-<div class="page active" id="page-workout">
-  <div class="header">
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <div class="home-header">
     <div>
-      <div class="greeting">Salut, campion!</div>
-      <strong id="dateLabel">Let's start your day</strong>
+      <div class="home-greeting">Salut, campion! 👊</div>
+      <strong id="homeDate">Let's get it</strong>
     </div>
-    <div class="trophy">🏆</div>
-  </div>
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-label">Streak</div>
-      <div class="stat-value"><span id="streakVal">0</span> <span>zile 🔥</span></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Ciclu</div>
-      <div class="stat-value">#<span id="cycleVal">1</span></div>
+    <div style="text-align:right">
+      <div style="font-size:11px;color:var(--text-dim)">Ciclu</div>
+      <div style="font-size:18px;font-weight:700;color:var(--lime)">#<span id="homeCycle">1</span></div>
     </div>
   </div>
-  <div class="activity-card">
-    <div class="activity-head">
-      <div class="activity-title">Daily Activity</div>
-      <button class="see-all" onclick="showPage('stats')">See all</button>
-    </div>
-    <div class="activity-stats">
-      <div class="activity-left">
-        <div><div class="lbl">Seturi azi</div><div class="val"><span id="setsToday">0</span> / <span id="setsTotal">0</span></div></div>
-        <div><div class="lbl">Progres</div><div class="val"><span id="progPct">0</span>%</div></div>
+
+  <!-- BIG STREAK RING -->
+  <div class="streak-section">
+    <div class="big-ring-wrap">
+      <svg viewBox="0 0 220 220">
+        <defs>
+          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#C8FF3D"/>
+            <stop offset="100%" style="stop-color:#8BCC00"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <circle cx="110" cy="110" r="95" class="ring-track"/>
+        <!-- outer decorative ring -->
+        <circle cx="110" cy="110" r="80" fill="none" stroke="#111" stroke-width="1"/>
+        <circle id="bigRingFill" cx="110" cy="110" r="95" fill="none" stroke="url(#ringGrad)" stroke-width="14" stroke-linecap="round"
+          stroke-dasharray="596.9" stroke-dashoffset="596.9" filter="url(#glow)"/>
+        <!-- inner ring -->
+        <circle cx="110" cy="110" r="72" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+        <circle id="bigRingInner" cx="110" cy="110" r="72" fill="none" stroke="rgba(200,255,61,0.2)" stroke-width="6" stroke-linecap="round"
+          stroke-dasharray="452.4" stroke-dashoffset="452.4"/>
+      </svg>
+      <div class="ring-center">
+        <div class="ring-streak-num" id="streakNum">0</div>
+        <div class="ring-streak-label">Zile Streak</div>
+        <div class="ring-streak-sub" id="streakSub">din 8</div>
       </div>
-      <div class="ring">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" fill="none" stroke="#2A2A2A" stroke-width="8"/>
-          <circle id="ringFill" cx="50" cy="50" r="42" fill="none" stroke="#C8FF3D" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"/>
-        </svg>
-        <div class="ring-text" id="ringPct">0%</div>
-      </div>
     </div>
   </div>
-  <div class="day-tabs-wrap">
-    <div class="day-tabs" id="dayTabs"></div>
+
+  <!-- 8 DAYS GRID -->
+  <div class="days-grid-section">
+    <div class="days-grid-title">Cele 8 Zile</div>
+    <div class="days-grid" id="daysGrid"></div>
   </div>
-  <div class="session-toggle" id="sessionToggle"></div>
-  <div class="workout-header">
+</div>
+
+<!-- DAY DETAIL PAGE -->
+<div class="page" id="page-day">
+  <div class="day-detail-header">
+    <div class="back-btn" onclick="goHome()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="18" height="18"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
     <div>
-      <div class="workout-title" id="workoutTitle">Push Day 1</div>
-      <div class="workout-subtitle" id="workoutSubtitle">Dimineata</div>
+      <div class="day-detail-title" id="dayDetailTitle">Ziua 1</div>
+      <div class="day-detail-sub" id="dayDetailSub">Push Day 1</div>
     </div>
+  </div>
+
+  <!-- Day progress ring -->
+  <div class="day-ring-section">
+    <div class="day-ring-wrap">
+      <svg viewBox="0 0 140 140">
+        <defs>
+          <linearGradient id="dayRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#C8FF3D"/>
+            <stop offset="100%" style="stop-color:#8BCC00"/>
+          </linearGradient>
+        </defs>
+        <circle cx="70" cy="70" r="58" fill="none" stroke="#1a1a1a" stroke-width="10"/>
+        <circle id="dayRingFill" cx="70" cy="70" r="58" fill="none" stroke="url(#dayRingGrad)" stroke-width="10" stroke-linecap="round"
+          stroke-dasharray="364.4" stroke-dashoffset="364.4"/>
+      </svg>
+      <div class="day-ring-center">
+        <div class="day-ring-pct" id="dayRingPct">0%</div>
+        <div class="day-ring-lbl" id="dayRingLbl">Progres</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-tabs" id="sessionTabs"></div>
+
+  <div class="timer-row">
+    <div class="workout-name" id="workoutName">Push Day 1</div>
     <div class="timer-pill" id="sessionTimer">00:00</div>
   </div>
+
   <div class="exercises" id="exercises"></div>
 </div>
 
+<!-- WEIGHT PAGE -->
 <div class="page" id="page-weight">
-  <div class="header">
-    <div><strong>Greutate</strong><div class="greeting">Track your progress</div></div>
-    <div class="trophy">⚖️</div>
-  </div>
+  <div class="page-header"><strong>Greutate</strong><div class="sub">Track your body</div></div>
   <div class="weight-card">
-    <div class="weight-current"><span id="currentWeight">--</span> <span>kg</span></div>
+    <div class="weight-current"><span id="currentWeight">--</span> <span style="font-size:16px;color:var(--text-dim)">kg</span></div>
     <div class="weight-add">
       <input type="number" id="newWeight" placeholder="kg" step="0.1" inputmode="decimal">
       <button onclick="addWeight()">Salvează</button>
     </div>
   </div>
-  <div class="chart-wrap">
-    <div class="chart-title">Evoluție</div>
-    <canvas id="weightChart"></canvas>
-  </div>
+  <div class="chart-wrap"><div class="chart-title">Evoluție</div><canvas id="weightChart"></canvas></div>
   <div class="section-title">Istoric</div>
   <div class="log-list" id="weightLog"></div>
 </div>
 
-<div class="page" id="page-stats">
-  <div class="header">
-    <div><strong>Statistici</strong><div class="greeting">Ciclu #<span id="statsCycle">1</span></div></div>
-    <div class="trophy">📊</div>
-  </div>
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Streak total</div><div class="stat-value" id="streakStats">0</div></div>
-    <div class="stat-card"><div class="stat-label">Cicluri</div><div class="stat-value" id="cycleStats">1</div></div>
-  </div>
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Seturi total</div><div class="stat-value" id="setsStat">0</div></div>
-    <div class="stat-card"><div class="stat-label">Volum (kg)</div><div class="stat-value" id="volumeStat">0</div></div>
-  </div>
-  <div class="settings-section">
-    <h3>Progres ciclu curent</h3>
-    <div id="dayProgress"></div>
-  </div>
-</div>
-
+<!-- SETTINGS PAGE -->
 <div class="page" id="page-settings">
-  <div class="header">
-    <div><strong>Setări</strong><div class="greeting">Manage your data</div></div>
-    <div class="trophy">⚙️</div>
+  <div class="page-header"><strong>Setări</strong><div class="sub">Manage your data</div></div>
+  <div class="settings-section">
+    <h3>Reset Ciclu Nou</h3>
+    <p>Resetează toate cele 8 zile. Streak-ul și greutățile rămân.</p>
+    <button class="btn btn-primary" onclick="resetCycle()" style="width:100%">Start Ciclu Nou 🔄</button>
   </div>
   <div class="settings-section">
-    <h3>Reset ciclu</h3>
-    <p>Resetează toate cele 8 zile pentru a începe un nou ciclu. Streak-ul și greutățile setate se păstrează.</p>
-    <button class="btn btn-primary" onclick="resetCycle()" style="width:100%">Reset Ciclu Nou</button>
-  </div>
-  <div class="settings-section">
-    <h3>Reset complet</h3>
-    <p>Șterge TOT: streak, cicluri, greutăți, log. Acțiune ireversibilă.</p>
-    <button class="btn btn-danger" onclick="resetAll()" style="width:100%">Reset Total</button>
-  </div>
-  <div class="settings-section">
-    <h3>Despre</h3>
-    <p>Gym Tracker v1.0<br>Date salvate local în browser.</p>
+    <h3>Reset Total</h3>
+    <p>Șterge TOT. Acțiune ireversibilă.</p>
+    <button class="btn btn-danger" onclick="resetAll()" style="width:100%">Reset Total ⚠️</button>
   </div>
 </div>
 
+<!-- BOTTOM NAV -->
 <div class="bottom-nav">
-  <button class="nav-btn active" data-page="workout" onclick="showPage('workout')">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/></svg>
+  <button class="nav-btn active" data-page="home" onclick="showPage('home')">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
     Home
   </button>
   <button class="nav-btn" data-page="weight" onclick="showPage('weight')">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 109 9 9 9 0 00-9-9zm0 16a7 7 0 117-7 7 7 0 01-7 7z"/><path d="M12.5 7h-1l-3 5h2v5h2v-5h2z"/></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a4 4 0 014 4c0 1.4-.7 2.6-1.8 3.3L15 12H9l.8-2.7A4 4 0 018 6a4 4 0 014-4zm0 2a2 2 0 100 4 2 2 0 000-4zM7 14h10l1 6H6l1-6z"/></svg>
     Greutate
   </button>
-  <button class="nav-add" onclick="showPage('workout')">+</button>
-  <button class="nav-btn" data-page="stats" onclick="showPage('stats')">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v8H3zm4-6h2v14H7zm4 3h2v11h-2zm4-6h2v17h-2zm4 9h2v8h-2z"/></svg>
-    Stats
-  </button>
+  <button class="nav-add" onclick="showPage('home')">🥷</button>
   <button class="nav-btn" data-page="settings" onclick="showPage('settings')">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94 0 .31.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54A.484.484 0 0014 2h-4a.484.484 0 00-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87a.49.49 0 00.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h4c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 00-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
     Setări
   </button>
 </div>
 
+<!-- COOLDOWN MODAL -->
 <div class="modal-overlay" id="cooldownModal">
   <div class="modal">
     <div class="modal-icon">⏱️</div>
-    <div class="modal-title" id="cooldownTitle">Cooldown</div>
-    <div class="modal-sub" id="cooldownSub">Următorul set</div>
-    <div class="timer-display" id="cooldownTimer">02:00</div>
+    <div class="modal-title" id="cdTitle">Cooldown</div>
+    <div class="modal-sub" id="cdSub">Pauză</div>
+    <div class="timer-display" id="cdTimer">02:00</div>
     <div class="modal-btns">
       <button class="btn btn-secondary" onclick="skipCooldown()">Skip</button>
-      <button class="btn btn-primary" onclick="addCooldown()">+30s</button>
+      <button class="btn btn-primary" onclick="addCD()">+30s</button>
     </div>
   </div>
 </div>
 
+<!-- EDIT MODAL -->
 <div class="modal-overlay" id="editModal">
   <div class="modal">
     <div class="edit-label" id="editLabel">Greutate</div>
     <input type="number" class="edit-input" id="editInput" step="0.5" inputmode="decimal">
     <div class="modal-btns" style="margin-top:18px">
       <button class="btn btn-secondary" onclick="closeEdit()">Anulează</button>
-      <button class="btn btn-primary" onclick="saveEdit()">Salvează</button>
+      <button class="btn btn-primary" onclick="saveEdit()">OK</button>
     </div>
   </div>
 </div>
 
+<!-- CONGRATS MODAL -->
+<div class="congrats-overlay" id="congratsModal">
+  <div class="congrats-check">
+    <svg viewBox="0 0 60 60" fill="none">
+      <path d="M12 30l14 14L48 16" stroke="#C8FF3D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="congrats-title" id="congratsTitle">Felicitări! 🎉</div>
+  <div class="congrats-sub" id="congratsSub">Sesiunea completată!</div>
+  <button class="congrats-close" onclick="closeCongrats()">Închide</button>
+</div>
+
 <script>
-const WORKOUT_DATA = {
-  1:{title:"Push Day 1",icon:"💪",morning:{name:"Push Day 1",subtitle:"Dimineață",exercises:[{name:"Incline Smith Machine",sets:[{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"}]},{name:"Lateral Shoulders Raises",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Cable Triceps",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Flat Chest Dumbell Press",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Shoulder Press Machine",sets:[{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"}]},{name:"Seated Triceps",sets:[{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"}]},{name:"Cable Chest Flyes",sets:[{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"}]},{name:"Shoulder Lateral Raises",sets:[{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"}]},{name:"Tricep Extension",sets:[{kg:27,reps:12,unit:"kg"},{kg:27,reps:12,unit:"kg"},{kg:27,reps:12,unit:"kg"}]}]},evening:{name:"Kettlebell",subtitle:"Seara",exercises:[{name:"Kettlebell Swings",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Around the World",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]}]}},
-  2:{title:"Pull Day 1",icon:"🔱",morning:{name:"Pull Day 1",subtitle:"Dimineață",exercises:[{name:"Lat Pull Down",sets:[{kg:39,reps:12,unit:"kg"},{kg:39,reps:12,unit:"kg"},{kg:39,reps:12,unit:"kg"}]},{name:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Single Arm Dumbbell Row",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Trapez",sets:[{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"}]},{name:"Spider Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Reverse Pec Deck",sets:[{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"}]},{name:"CBUM Biceps",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]}]},evening:{name:"Abdomene",subtitle:"Seara",exercises:[{name:"V Ups",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Alternative V Ups",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Seated In & Outs",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Bicycle Kicks",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Russian Twists",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]}]}},
-  3:{title:"Picioare",icon:"🦵",morning:{name:"Picioare",subtitle:"Dimineață",exercises:[{name:"Seated Leg Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Smith Squats",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Romanian Deadlift",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Leg Extensions Seated",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Hip Aduction - Interior",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Standing Calf",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]}]},evening:{name:"Kettlebell",subtitle:"Seara",exercises:[{name:"Kettlebell Swings",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Around the World",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]}]}},
-  4:{title:"Forearms / Biceps / Abs",icon:"💪",morning:{name:"Forearms / Biceps / Abs",subtitle:"Dimineață",exercises:[{name:"Wrist Curls",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Seated Abs",sets:[{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"}]},{name:"Reverse Bar",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Seated Rotating Machine",sets:[{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"}]},{name:"Behind the Back Bar",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"CBUM Biceps",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Legs Up Lifting",sets:[{kg:0,reps:12,unit:"reps"},{kg:0,reps:12,unit:"reps"},{kg:0,reps:12,unit:"reps"}]}]},evening:{name:"Forearms",subtitle:"Seara",exercises:[{name:"Pumnii in Față & Spate",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]},{name:"Rotește Pumnii",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]},{name:"Sapă în Orez",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]},{name:"Strânge Orezul",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]}]}},
-  5:{title:"Push Day 2",icon:"💪",morning:{name:"Push Day 2",subtitle:"Dimineață",exercises:[{name:"Decline Chest Push",sets:[{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"}]},{name:"Lateral Shoulders Raises Machine",sets:[{kg:51,reps:12,unit:"kg"},{kg:51,reps:12,unit:"kg"},{kg:51,reps:12,unit:"kg"}]},{name:"Cable Triceps",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Flat Chest Dumbell Press",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Shoulder Press Machine",sets:[{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"}]},{name:"Seated Triceps",sets:[{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"}]},{name:"Cable Chest Flyes",sets:[{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"},{kg:10,reps:12,unit:"kg side"}]},{name:"Shoulder Lateral Raises",sets:[{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"},{kg:45,reps:12,unit:"kg"}]},{name:"Tricep Extension",sets:[{kg:27,reps:12,unit:"kg"},{kg:27,reps:12,unit:"kg"},{kg:27,reps:12,unit:"kg"}]}]},evening:{name:"Kettlebell",subtitle:"Seara",exercises:[{name:"Kettlebell Swings",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Around the World",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]}]}},
-  6:{title:"Pull Day 2",icon:"🔱",morning:{name:"Pull Day 2",subtitle:"Dimineață",exercises:[{name:"Cable Pulls",sets:[{kg:39,reps:12,unit:"kg"},{kg:39,reps:12,unit:"kg"},{kg:39,reps:12,unit:"kg"}]},{name:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Single Arm Dumbbell Row",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Trapez",sets:[{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"}]},{name:"Spider Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Reverse Pec Deck",sets:[{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"},{kg:22,reps:12,unit:"kg"}]},{name:"CBUM Biceps",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]}]},evening:{name:"Abdomene",subtitle:"Seara",exercises:[{name:"V Ups",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Alternative V Ups",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Seated In & Outs",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Bicycle Kicks",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]},{name:"Russian Twists",sets:[{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"},{kg:0,reps:15,unit:"reps"}]}]}},
-  7:{title:"Picioare",icon:"🦵",morning:{name:"Picioare",subtitle:"Dimineață",exercises:[{name:"Seated Leg Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Smith Squats",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Romanian Deadlift",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Leg Extensions Pe Burtă",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Hip Aduction - Exterior",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Standing Calf",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]}]},evening:{name:"Kettlebell",subtitle:"Seara",exercises:[{name:"Kettlebell Swings",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Around the World",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]},{name:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,unit:"kg"},{kg:10,reps:50,unit:"kg"}]}]}},
-  8:{title:"Forearms / Biceps / Abs",icon:"💪",morning:{name:"Forearms / Biceps / Abs",subtitle:"Dimineață",exercises:[{name:"Wrist Curls",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Seated Abs",sets:[{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"}]},{name:"Reverse Bar",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Seated Rotating Machine",sets:[{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"},{kg:35,reps:12,unit:"kg"}]},{name:"Behind the Back Bar",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"CBUM Biceps",sets:[{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"},{kg:6,reps:12,unit:"kg"}]},{name:"Legs Up Lifting",sets:[{kg:0,reps:12,unit:"reps"},{kg:0,reps:12,unit:"reps"},{kg:0,reps:12,unit:"reps"}]}]},evening:{name:"Forearms",subtitle:"Seara",exercises:[{name:"Pumnii in Față & Spate",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]},{name:"Rotește Pumnii",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]},{name:"Sapă în Orez",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]},{name:"Strânge Orezul",sets:[{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"},{kg:0,reps:50,unit:"reps"}]}]}}
+// ====== DATA ======
+const WD = {
+  1:{title:"Push Day 1",morning:{name:"Push Day 1",sub:"Dimineață",ex:[{n:"Incline Smith Machine",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Lateral Shoulders Raises",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Cable Triceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Flat Chest Dumbell Press",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Shoulder Press Machine",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Seated Triceps",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Cable Chest Flyes",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Shoulder Lateral Raises",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Tricep Extension",sets:[{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
+  2:{title:"Pull Day 1",morning:{name:"Pull Day 1",sub:"Dimineață",ex:[{n:"Lat Pull Down",sets:[{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Single Arm Dumbbell Row",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Trapez",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"Spider Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Reverse Pec Deck",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Abdomene",sub:"Seara",ex:[{n:"V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Alternative V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Seated In & Outs",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Bicycle Kicks",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Russian Twists",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]}]}},
+  3:{title:"Picioare",morning:{name:"Picioare",sub:"Dimineață",ex:[{n:"Seated Leg Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Smith Squats",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Romanian Deadlift",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Leg Extensions Seated",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Hip Aduction Interior",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Standing Calf",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
+  4:{title:"Forearms/Biceps/Abs",morning:{name:"Forearms/Biceps/Abs",sub:"Dimineață",ex:[{n:"Wrist Curls",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Abs",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Reverse Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Rotating Machine",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Behind the Back Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Legs Up Lifting",sets:[{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"}]}]},evening:{name:"Forearms",sub:"Seara",ex:[{n:"Pumnii Față & Spate",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Rotește Pumnii",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Sapă în Orez",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Strânge Orezul",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]}]}},
+  5:{title:"Push Day 2",morning:{name:"Push Day 2",sub:"Dimineață",ex:[{n:"Decline Chest Push",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Lateral Shoulders Raises Machine",sets:[{kg:51,reps:12,u:"kg"},{kg:51,reps:12,u:"kg"},{kg:51,reps:12,u:"kg"}]},{n:"Cable Triceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Flat Chest Dumbell Press",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Shoulder Press Machine",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Seated Triceps",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Cable Chest Flyes",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Shoulder Lateral Raises",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Tricep Extension",sets:[{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
+  6:{title:"Pull Day 2",morning:{name:"Pull Day 2",sub:"Dimineață",ex:[{n:"Cable Pulls",sets:[{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Single Arm Dumbbell Row",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Trapez",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"Spider Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Reverse Pec Deck",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Abdomene",sub:"Seara",ex:[{n:"V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Alternative V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Seated In & Outs",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Bicycle Kicks",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Russian Twists",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]}]}},
+  7:{title:"Picioare",morning:{name:"Picioare",sub:"Dimineață",ex:[{n:"Seated Leg Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Smith Squats",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Romanian Deadlift",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Leg Extensions Pe Burtă",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Hip Aduction Exterior",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Standing Calf",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
+  8:{title:"Forearms/Biceps/Abs",morning:{name:"Forearms/Biceps/Abs",sub:"Dimineață",ex:[{n:"Wrist Curls",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Abs",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Reverse Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Rotating Machine",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Behind the Back Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Legs Up Lifting",sets:[{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"}]}]},evening:{name:"Forearms",sub:"Seara",ex:[{n:"Pumnii Față & Spate",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Rotește Pumnii",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Sapă în Orez",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Strânge Orezul",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]}]}}
 };
 
-let state={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};
+let S={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};
 
-function initWorkouts(){for(let d=1;d<=8;d++){if(!state.workouts[d])state.workouts[d]={morning:null,evening:null};['morning','evening'].forEach(s=>{if(!state.workouts[d][s]){state.workouts[d][s]={exercises:WORKOUT_DATA[d][s].exercises.map(ex=>({sets:ex.sets.map(set=>({...set,done:false}))}))};}});}}
+function initW(){for(let d=1;d<=8;d++){if(!S.workouts[d])S.workouts[d]={morning:null,evening:null};['morning','evening'].forEach(s=>{if(!S.workouts[d][s]){S.workouts[d][s]={ex:WD[d][s].ex.map(e=>({sets:e.sets.map(st=>({...st,done:false}))}))};}});}}
+function save(){try{localStorage.setItem('gym2',JSON.stringify(S));}catch(e){}}
+function load(){try{const r=localStorage.getItem('gym2');if(r)S={...S,...JSON.parse(r)};}catch(e){}initW();}
 
-function saveState(){try{localStorage.setItem('gym_state',JSON.stringify(state));}catch(e){}}
-function loadState(){try{const raw=localStorage.getItem('gym_state');if(raw){const loaded=JSON.parse(raw);state={...state,...loaded};}}catch(e){}initWorkouts();}
+// Audio
+let aCtx;
+function beep(f=800,d=150){try{if(!aCtx)aCtx=new(window.AudioContext||window.webkitAudioContext)();const o=aCtx.createOscillator(),g=aCtx.createGain();o.connect(g);g.connect(aCtx.destination);o.frequency.value=f;g.gain.setValueAtTime(0.3,aCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,aCtx.currentTime+d/1000);o.start();o.stop(aCtx.currentTime+d/1000);}catch(e){}}
+function notifSound(){beep(800,120);setTimeout(()=>beep(1000,120),150);setTimeout(()=>beep(1300,250),300);}
 
-let audioCtx;
-function beep(freq=800,dur=200){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();const osc=audioCtx.createOscillator();const gain=audioCtx.createGain();osc.connect(gain);gain.connect(audioCtx.destination);osc.frequency.value=freq;osc.type='sine';gain.gain.setValueAtTime(0.3,audioCtx.currentTime);gain.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+dur/1000);osc.start();osc.stop(audioCtx.currentTime+dur/1000);}catch(e){}}
-function notificationSound(){beep(800,150);setTimeout(()=>beep(1000,150),180);setTimeout(()=>beep(1200,300),360);}
+// Pages
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));
+  if(p==='home')renderHome();
+  if(p==='weight')renderWeight();
+}
 
-function showPage(p){document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));if(p==='weight')renderWeight();if(p==='stats')renderStats();}
+// ===== HOME =====
+function renderHome(){
+  document.getElementById('homeDate').textContent=new Date().toLocaleDateString('ro-RO',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('homeCycle').textContent=S.cycle;
+  // Streak ring — 8 days per cycle, cumulative
+  const streakInCycle=S.streak%8||( S.streak>0&&S.streak%8===0?8:0);
+  const pct=S.streak>0?(streakInCycle/8):0;
+  const circ=596.9;
+  document.getElementById('bigRingFill').style.strokeDashoffset=circ-(circ*pct);
+  document.getElementById('bigRingInner').style.strokeDashoffset=452.4-(452.4*pct);
+  document.getElementById('streakNum').textContent=S.streak;
+  const inCycle=S.streak===0?0:(streakInCycle===0?8:streakInCycle);
+  document.getElementById('streakSub').textContent=`${inCycle} din 8 în ciclu`;
+  renderDaysGrid();
+}
 
-function renderDayTabs(){const wrap=document.getElementById('dayTabs');wrap.innerHTML='';for(let d=1;d<=8;d++){const btn=document.createElement('button');btn.className='day-tab'+(d===state.currentDay?' active':'')+(isDayComplete(d)?' done':'');btn.textContent='Ziua '+d;btn.onclick=()=>{state.currentDay=d;saveState();render();};wrap.appendChild(btn);}}
-function renderSessionToggle(){const wrap=document.getElementById('sessionToggle');wrap.innerHTML=`<button class="session-btn ${state.currentSession==='morning'?'active':''}" onclick="setSession('morning')">☀️ Dimineață</button><button class="session-btn ${state.currentSession==='evening'?'active':''}" onclick="setSession('evening')">🌙 Seara</button>`;}
-function setSession(s){state.currentSession=s;saveState();render();}
+function renderDaysGrid(){
+  const grid=document.getElementById('daysGrid');
+  grid.innerHTML='';
+  for(let d=1;d<=8;d++){
+    const mDone=isSessionDone(d,'morning');
+    const eDone=isSessionDone(d,'evening');
+    const allDone=mDone&&eDone;
+    const pct=allDone?1:mDone?0.5:0;
+    const circ=2*Math.PI*18; // r=18
+    const offset=circ-(circ*pct);
+    const card=document.createElement('div');
+    card.className='day-card'+(allDone?' done-day':d===S.currentDay?' active-day':'');
+    card.innerHTML=`
+      <div class="day-card-num">Ziua ${d}</div>
+      <div class="day-card-mini-ring">
+        <svg viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="18" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+          <circle cx="22" cy="22" r="18" fill="none" stroke="${allDone?'#4ADE80':'#C8FF3D'}" stroke-width="4"
+            stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
+            transform="rotate(-90 22 22)"/>
+        </svg>
+        <div class="day-card-emoji">${allDone?'✅':mDone?'☀️':'🥷'}</div>
+      </div>
+      <div class="day-card-label">${allDone?'Complet':mDone?'Dim. ✓':WD[d].title.split('/')[0].trim()}</div>
+    `;
+    card.onclick=()=>openDay(d);
+    grid.appendChild(card);
+  }
+}
 
-function renderExercises(){const day=state.currentDay,sess=state.currentSession;const def=WORKOUT_DATA[day][sess];const data=state.workouts[day][sess];document.getElementById('workoutTitle').textContent=def.name;document.getElementById('workoutSubtitle').textContent=def.subtitle+' • '+def.exercises.length+' exerciții';const wrap=document.getElementById('exercises');wrap.innerHTML='';data.exercises.forEach((ex,exIdx)=>{const exDef=def.exercises[exIdx];const allDone=ex.sets.every(s=>s.done);const someDone=ex.sets.some(s=>s.done);const div=document.createElement('div');div.className='exercise'+(allDone?' completed':someDone?' active':'');let setsHtml='';ex.sets.forEach((set,setIdx)=>{const isWeighted=exDef.sets[setIdx].unit!=='reps';setsHtml+=`<div class="set-row ${set.done?'done':''}"><div class="set-num">Set ${setIdx+1}</div><div class="set-vals">${isWeighted?`<div class="set-val" onclick="openEdit(${exIdx},${setIdx},'kg')"><span class="num">${set.kg}</span><span class="unit">${exDef.sets[setIdx].unit}</span></div>`:''}<div class="set-val" onclick="openEdit(${exIdx},${setIdx},'reps')"><span class="num">${set.reps}</span><span class="unit">reps</span></div></div><button class="set-check ${set.done?'done':''}" onclick="toggleSet(${exIdx},${setIdx})"></button></div>`;});div.innerHTML=`<div class="ex-head"><div class="ex-num">${exIdx+1}</div><div class="ex-name">${exDef.name}</div></div><div class="sets">${setsHtml}</div>`;wrap.appendChild(div);});}
+function isSessionDone(d,s){const w=S.workouts[d];return w&&w[s]&&w[s].ex.every(e=>e.sets.every(st=>st.done));}
+function isDayDone(d){return isSessionDone(d,'morning')&&isSessionDone(d,'evening');}
 
-function renderStatsCards(){const day=state.currentDay,sess=state.currentSession;const data=state.workouts[day][sess];let total=0,done=0;data.exercises.forEach(ex=>ex.sets.forEach(s=>{total++;if(s.done)done++;}));const pct=total?Math.round(done/total*100):0;document.getElementById('setsToday').textContent=done;document.getElementById('setsTotal').textContent=total;document.getElementById('progPct').textContent=pct;document.getElementById('ringPct').textContent=pct+'%';document.getElementById('ringFill').style.strokeDashoffset=264-(264*pct/100);document.getElementById('streakVal').textContent=state.streak;document.getElementById('cycleVal').textContent=state.cycle;}
+// ===== OPEN DAY =====
+function openDay(d){
+  S.currentDay=d;
+  S.currentSession='morning';
+  save();
+  renderDayPage();
+  showPageRaw('day');
+}
+function goHome(){showPage('home');}
+function showPageRaw(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));
+}
 
-function render(){renderDayTabs();renderSessionToggle();renderExercises();renderStatsCards();const today=new Date();document.getElementById('dateLabel').textContent=today.toLocaleDateString('ro-RO',{weekday:'long',day:'numeric',month:'long'});}
+function renderDayPage(){
+  const d=S.currentDay,s=S.currentSession;
+  document.getElementById('dayDetailTitle').textContent='Ziua '+d;
+  document.getElementById('dayDetailSub').textContent=WD[d].title;
+  renderDayRing();
+  renderSessionTabs();
+  renderExercises();
+}
 
-let cooldownInterval=null,cooldownRemaining=0;
-function toggleSet(exIdx,setIdx){const d=state.workouts[state.currentDay][state.currentSession];const set=d.exercises[exIdx].sets[setIdx];set.done=!set.done;if(set.done){const exercise=d.exercises[exIdx];const isLastSet=exercise.sets.every(s=>s.done);const isLastExercise=exIdx===d.exercises.length-1;if(isLastSet&&!isLastExercise){startCooldown(240,'🎯 Exercițiu complet!','Pauză până la următorul exercițiu');}else if(isLastSet&&isLastExercise){checkDayComplete();}else{startCooldown(120,'⏱️ Set complet!','Pauză până la următorul set');}}saveState();render();}
+function renderDayRing(){
+  const d=S.currentDay;
+  const mDone=isSessionDone(d,'morning');
+  const eDone=isSessionDone(d,'evening');
+  let pct=0;
+  if(mDone&&eDone)pct=1;
+  else if(mDone)pct=0.5;
+  // partial morning progress
+  else{
+    const w=S.workouts[d].morning;
+    let tot=0,done=0;
+    w.ex.forEach(e=>e.sets.forEach(st=>{tot++;if(st.done)done++;}));
+    pct=tot?done/tot*0.5:0;
+  }
+  const circ=364.4;
+  document.getElementById('dayRingFill').style.strokeDashoffset=circ-(circ*pct);
+  document.getElementById('dayRingPct').textContent=Math.round(pct*100)+'%';
+  document.getElementById('dayRingLbl').textContent=pct>=1?'Ziua completă!':pct>=0.5?'Dimineață ✓':S.currentSession==='evening'?'Seara':'Progres';
+}
 
-function checkDayComplete(){if(isDayComplete(state.currentDay)){const today=new Date().toDateString();if(state.lastCompletedDate!==today){state.streak++;state.lastCompletedDate=today;}saveState();notificationSound();setTimeout(()=>alert('🎉 Ziua '+state.currentDay+' completă!\nStreak: '+state.streak+' zile'),100);}}
-function isDayComplete(d){const dw=state.workouts[d];if(!dw)return false;return['morning','evening'].every(s=>dw[s]&&dw[s].exercises.every(ex=>ex.sets.every(set=>set.done)));}
+function renderSessionTabs(){
+  const d=S.currentDay;
+  const mDone=isSessionDone(d,'morning');
+  const eDone=isSessionDone(d,'evening');
+  document.getElementById('sessionTabs').innerHTML=`
+    <button class="sess-btn ${S.currentSession==='morning'?'active':''} ${mDone?'half-done':''}" onclick="setSession('morning')">☀️ Dimineață ${mDone?'✓':''}</button>
+    <button class="sess-btn ${S.currentSession==='evening'?'active':''} ${eDone?'half-done':''}" onclick="setSession('evening')">🌙 Seara ${eDone?'✓':''}</button>
+  `;
+}
+function setSession(s){S.currentSession=s;save();renderDayPage();}
 
-function startCooldown(seconds,title,sub){cooldownRemaining=seconds;document.getElementById('cooldownTitle').textContent=title;document.getElementById('cooldownSub').textContent=sub;document.getElementById('cooldownModal').classList.add('show');updateCooldownDisplay();if(cooldownInterval)clearInterval(cooldownInterval);cooldownInterval=setInterval(()=>{cooldownRemaining--;updateCooldownDisplay();if(cooldownRemaining<=0){clearInterval(cooldownInterval);notificationSound();setTimeout(()=>skipCooldown(),1500);}},1000);}
-function updateCooldownDisplay(){const m=Math.floor(cooldownRemaining/60);const s=cooldownRemaining%60;document.getElementById('cooldownTimer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
-function skipCooldown(){if(cooldownInterval)clearInterval(cooldownInterval);document.getElementById('cooldownModal').classList.remove('show');}
-function addCooldown(){cooldownRemaining+=30;updateCooldownDisplay();}
+function renderExercises(){
+  const d=S.currentDay,s=S.currentSession;
+  const def=WD[d][s];
+  const data=S.workouts[d][s];
+  document.getElementById('workoutName').textContent=def.name;
+  const wrap=document.getElementById('exercises');
+  wrap.innerHTML='';
+  data.ex.forEach((ex,ei)=>{
+    const exDef=def.ex[ei];
+    const allDone=ex.sets.every(st=>st.done);
+    const someDone=ex.sets.some(st=>st.done);
+    const div=document.createElement('div');
+    div.className='exercise'+(allDone?' ex-done':someDone?' ex-active':'');
+    let sHtml='';
+    ex.sets.forEach((set,si)=>{
+      const isW=exDef.sets[si].u!=='reps';
+      sHtml+=`<div class="set-row ${set.done?'s-done':''}">
+        <div class="set-num">Set ${si+1}</div>
+        <div class="set-vals">
+          ${isW?`<div class="set-val" onclick="openEdit(${ei},${si},'kg')"><span class="num">${set.kg}</span><span class="unit">${exDef.sets[si].u}</span></div>`:''}
+          <div class="set-val" onclick="openEdit(${ei},${si},'reps')"><span class="num">${set.reps}</span><span class="unit">reps</span></div>
+        </div>
+        <button class="set-check ${set.done?'ck-done':''}" onclick="toggleSet(${ei},${si})"></button>
+      </div>`;
+    });
+    div.innerHTML=`<div class="ex-head"><div class="ex-num">${ei+1}</div><div class="ex-name">${exDef.n}</div></div><div class="sets">${sHtml}</div>`;
+    wrap.appendChild(div);
+  });
+}
 
+// Toggle set
+function toggleSet(ei,si){
+  const d=S.currentDay,s=S.currentSession;
+  const data=S.workouts[d][s];
+  const set=data.ex[ei].sets[si];
+  set.done=!set.done;
+  if(set.done&&!sessionTimerRunning)startSessionTimer();
+  if(set.done){
+    const exAllDone=data.ex[ei].sets.every(st=>st.done);
+    const isLastEx=ei===data.ex.length-1;
+    if(exAllDone&&!isLastEx){
+      startCooldown(240,'🎯 Exercițiu complet!','4 min până la următorul');
+    } else if(exAllDone&&isLastEx){
+      // Session done!
+      checkSessionDone();
+    } else {
+      startCooldown(120,'⏱️ Set complet!','2 min cooldown');
+    }
+  }
+  save();
+  renderDayPage();
+}
+
+function checkSessionDone(){
+  const d=S.currentDay,s=S.currentSession;
+  if(isSessionDone(d,s)){
+    notifSound();
+    if(s==='morning'){
+      // congrats → go home
+      const mName=WD[d].morning.name;
+      showCongrats(`${mName} Complet! 🔥`,'Dimineața bifată! Revino seara pentru sesiunea KB.');
+    } else {
+      // both done
+      if(isDayDone(d)){
+        const today=new Date().toDateString();
+        if(S.lastCompletedDate!==today){S.streak++;S.lastCompletedDate=today;}
+        save();
+        showCongrats('Ziua '+d+' Completă! 🏆','Ambele sesiuni terminate. Streak: '+S.streak+' zile!');
+      } else {
+        showCongrats('Seara Completă! 🌙','Bun lucru! Ziua '+d+' aproape gata.');
+      }
+    }
+  }
+}
+
+// Congrats
+function showCongrats(title,sub){
+  document.getElementById('congratsTitle').textContent=title;
+  document.getElementById('congratsSub').textContent=sub;
+  document.getElementById('congratsModal').classList.add('show');
+}
+function closeCongrats(){
+  document.getElementById('congratsModal').classList.remove('show');
+  goHome();
+}
+
+// Session timer
+let sessionTimerRunning=false,sessionStart=null,sessionInterval=null;
+function startSessionTimer(){
+  if(sessionTimerRunning)return;
+  sessionTimerRunning=true;
+  sessionStart=Date.now();
+  sessionInterval=setInterval(()=>{
+    const e=Math.floor((Date.now()-sessionStart)/1000);
+    const m=Math.floor(e/60),s=e%60;
+    const el=document.getElementById('sessionTimer');
+    if(el){el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.classList.add('running');}
+  },1000);
+}
+function resetSessionTimer(){
+  if(sessionInterval)clearInterval(sessionInterval);
+  sessionTimerRunning=false;sessionStart=null;sessionInterval=null;
+  const el=document.getElementById('sessionTimer');
+  if(el){el.textContent='00:00';el.classList.remove('running');}
+}
+
+// Cooldown
+let cdInterval=null,cdRemaining=0;
+function startCooldown(secs,title,sub){
+  cdRemaining=secs;
+  document.getElementById('cdTitle').textContent=title;
+  document.getElementById('cdSub').textContent=sub;
+  document.getElementById('cooldownModal').classList.add('show');
+  updateCD();
+  if(cdInterval)clearInterval(cdInterval);
+  cdInterval=setInterval(()=>{cdRemaining--;updateCD();if(cdRemaining<=0){clearInterval(cdInterval);notifSound();setTimeout(skipCooldown,1500);}},1000);
+}
+function updateCD(){const m=Math.floor(cdRemaining/60),s=cdRemaining%60;document.getElementById('cdTimer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+function skipCooldown(){if(cdInterval)clearInterval(cdInterval);document.getElementById('cooldownModal').classList.remove('show');}
+function addCD(){cdRemaining+=30;updateCD();}
+
+// Edit
 let editCtx=null;
-function openEdit(exIdx,setIdx,field){const set=state.workouts[state.currentDay][state.currentSession].exercises[exIdx].sets[setIdx];editCtx={exIdx,setIdx,field};document.getElementById('editLabel').textContent=field==='kg'?'Greutate (kg)':'Repetări';document.getElementById('editInput').value=field==='kg'?set.kg:set.reps;document.getElementById('editModal').classList.add('show');setTimeout(()=>document.getElementById('editInput').focus(),100);}
+function openEdit(ei,si,field){
+  const set=S.workouts[S.currentDay][S.currentSession].ex[ei].sets[si];
+  editCtx={ei,si,field};
+  document.getElementById('editLabel').textContent=field==='kg'?'Greutate (kg)':'Repetări';
+  document.getElementById('editInput').value=field==='kg'?set.kg:set.reps;
+  document.getElementById('editModal').classList.add('show');
+  setTimeout(()=>document.getElementById('editInput').focus(),100);
+}
 function closeEdit(){document.getElementById('editModal').classList.remove('show');editCtx=null;}
-function saveEdit(){if(!editCtx)return;const val=parseFloat(document.getElementById('editInput').value)||0;const set=state.workouts[state.currentDay][state.currentSession].exercises[editCtx.exIdx].sets[editCtx.setIdx];set[editCtx.field]=val;closeEdit();saveState();render();}
+function saveEdit(){
+  if(!editCtx)return;
+  const val=parseFloat(document.getElementById('editInput').value)||0;
+  S.workouts[S.currentDay][S.currentSession].ex[editCtx.ei].sets[editCtx.si][editCtx.field]=val;
+  closeEdit();save();renderExercises();
+}
 
-let sessionStart=null,sessionInterval=null;
-document.addEventListener('click',e=>{if(e.target.closest('.set-check')&&!sessionInterval){sessionStart=Date.now();sessionInterval=setInterval(()=>{const elapsed=Math.floor((Date.now()-sessionStart)/1000);const h=Math.floor(elapsed/3600);const m=Math.floor((elapsed%3600)/60);const s=elapsed%60;const txt=h?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('sessionTimer').textContent=txt;document.getElementById('sessionTimer').classList.add('active');},1000);}},true);
+// Weight
+function addWeight(){const v=parseFloat(document.getElementById('newWeight').value);if(!v||v<=0)return;S.weightLog.push({date:new Date().toISOString(),kg:v});document.getElementById('newWeight').value='';save();renderWeight();}
+function deleteWeight(i){S.weightLog.splice(i,1);save();renderWeight();}
+function renderWeight(){
+  const log=S.weightLog;
+  document.getElementById('currentWeight').textContent=log.length?log[log.length-1].kg:'--';
+  const list=document.getElementById('weightLog');list.innerHTML='';
+  [...log].reverse().forEach((e,i)=>{
+    const ri=log.length-1-i;const d=new Date(e.date);
+    const div=document.createElement('div');div.className='log-item';
+    div.innerHTML=`<div><div class="log-kg">${e.kg} kg</div><div class="log-date">${d.toLocaleDateString('ro-RO')} ${d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'})}</div></div><button class="log-del" onclick="deleteWeight(${ri})">✕</button>`;
+    list.appendChild(div);
+  });
+  drawChart();
+}
+function drawChart(){
+  const canvas=document.getElementById('weightChart');if(!canvas)return;
+  const ctx=canvas.getContext('2d');const dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();canvas.width=rect.width*dpr;canvas.height=200*dpr;ctx.scale(dpr,dpr);
+  const w=rect.width,h=200;ctx.clearRect(0,0,w,h);
+  const data=S.weightLog;
+  if(!data.length){ctx.fillStyle='#555';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Adaugă greutăți',w/2,h/2);return;}
+  const vals=data.map(d=>d.kg),min=Math.min(...vals)-1,max=Math.max(...vals)+1,range=max-min||1,px=20,py=20;
+  ctx.strokeStyle='#1a1a1a';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=py+(h-2*py)*i/4;ctx.beginPath();ctx.moveTo(px,y);ctx.lineTo(w-px,y);ctx.stroke();}
+  if(data.length>=2){
+    ctx.strokeStyle='#C8FF3D';ctx.lineWidth=2.5;ctx.beginPath();
+    data.forEach((d,i)=>{const x=px+(w-2*px)*i/(data.length-1);const y=h-py-(h-2*py)*(d.kg-min)/range;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+    ctx.stroke();ctx.lineTo(w-px,h-py);ctx.lineTo(px,h-py);ctx.closePath();ctx.fillStyle='rgba(200,255,61,0.08)';ctx.fill();
+  }
+  data.forEach((d,i)=>{const x=data.length===1?w/2:px+(w-2*px)*i/(data.length-1);const y=h-py-(h-2*py)*(d.kg-min)/range;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='#C8FF3D';ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();});
+}
 
-function resetCycle(){if(!confirm('Reset ciclu? Toate cele 8 zile se resetează. Streak și greutăți rămân.'))return;state.cycle++;state.workouts={};initWorkouts();if(sessionInterval){clearInterval(sessionInterval);sessionInterval=null;}document.getElementById('sessionTimer').textContent='00:00';document.getElementById('sessionTimer').classList.remove('active');saveState();render();alert('Ciclu #'+state.cycle+' început! 💪');}
-function resetAll(){if(!confirm('RESET TOTAL? Tot dispare.'))return;if(!confirm('Sigur? Acțiune ireversibilă.'))return;state={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};initWorkouts();saveState();render();}
+// Reset
+function resetCycle(){if(!confirm('Reset ciclu nou? Streak rămâne.'))return;S.cycle++;S.workouts={};initW();resetSessionTimer();save();renderHome();showPage('home');alert('Ciclu #'+S.cycle+' început! 💪');}
+function resetAll(){if(!confirm('RESET TOTAL?'))return;if(!confirm('Sigur?'))return;S={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};initW();resetSessionTimer();save();renderHome();}
 
-function addWeight(){const v=parseFloat(document.getElementById('newWeight').value);if(!v||v<=0)return alert('Introdu o greutate validă');state.weightLog.push({date:new Date().toISOString(),kg:v});document.getElementById('newWeight').value='';saveState();renderWeight();}
-function deleteWeight(idx){if(!confirm('Șterge intrarea?'))return;state.weightLog.splice(idx,1);saveState();renderWeight();}
-function renderWeight(){const log=state.weightLog;document.getElementById('currentWeight').textContent=log.length?log[log.length-1].kg:'--';const list=document.getElementById('weightLog');list.innerHTML='';[...log].reverse().forEach((entry,i)=>{const realIdx=log.length-1-i;const d=new Date(entry.date);const div=document.createElement('div');div.className='log-item';div.innerHTML=`<div><div class="log-kg">${entry.kg} kg</div><div class="log-date">${d.toLocaleDateString('ro-RO')} ${d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'})}</div></div><button class="log-del" onclick="deleteWeight(${realIdx})">✕</button>`;list.appendChild(div);});drawChart();}
-
-function drawChart(){const canvas=document.getElementById('weightChart');const ctx=canvas.getContext('2d');const dpr=window.devicePixelRatio||1;const rect=canvas.getBoundingClientRect();canvas.width=rect.width*dpr;canvas.height=200*dpr;ctx.scale(dpr,dpr);const w=rect.width,h=200;ctx.clearRect(0,0,w,h);const data=state.weightLog;if(data.length<1){ctx.fillStyle='#888';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Adaugă greutăți pentru a vedea graficul',w/2,h/2);return;}const values=data.map(d=>d.kg);const min=Math.min(...values)-1;const max=Math.max(...values)+1;const range=max-min||1;const padX=20,padY=20;ctx.strokeStyle='#2A2A2A';ctx.lineWidth=1;for(let i=0;i<=4;i++){const y=padY+(h-2*padY)*i/4;ctx.beginPath();ctx.moveTo(padX,y);ctx.lineTo(w-padX,y);ctx.stroke();}if(data.length>=2){ctx.strokeStyle='#C8FF3D';ctx.lineWidth=2.5;ctx.beginPath();data.forEach((d,i)=>{const x=padX+(w-2*padX)*i/(data.length-1);const y=h-padY-(h-2*padY)*(d.kg-min)/range;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();ctx.lineTo(w-padX,h-padY);ctx.lineTo(padX,h-padY);ctx.closePath();ctx.fillStyle='rgba(200,255,61,0.1)';ctx.fill();}data.forEach((d,i)=>{const x=data.length===1?w/2:padX+(w-2*padX)*i/(data.length-1);const y=h-padY-(h-2*padY)*(d.kg-min)/range;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='#C8FF3D';ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();});}
-
-function renderStats(){document.getElementById('statsCycle').textContent=state.cycle;document.getElementById('streakStats').textContent=state.streak;document.getElementById('cycleStats').textContent=state.cycle;let doneSets=0,volume=0;for(let d=1;d<=8;d++){['morning','evening'].forEach(s=>{state.workouts[d][s].exercises.forEach(ex=>{ex.sets.forEach(set=>{if(set.done){doneSets++;volume+=set.kg*set.reps;}});});});}document.getElementById('setsStat').textContent=doneSets;document.getElementById('volumeStat').textContent=Math.round(volume);const dp=document.getElementById('dayProgress');dp.innerHTML='';for(let d=1;d<=8;d++){let total=0,done=0;['morning','evening'].forEach(s=>{state.workouts[d][s].exercises.forEach(ex=>ex.sets.forEach(set=>{total++;if(set.done)done++;}));});const pct=total?Math.round(done/total*100):0;const div=document.createElement('div');div.style.cssText='display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px';div.innerHTML=`<div style="width:50px">Ziua ${d}</div><div style="flex:1;height:8px;background:#0A0A0A;border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${pct===100?'#4ADE80':'#C8FF3D'};border-radius:4px"></div></div><div style="width:40px;text-align:right;color:#888">${pct}%</div>`;dp.appendChild(div);}}
-
-(function init(){loadState();render();document.getElementById('loading').style.display='none';})();
+// Init
+(function(){load();renderHome();document.getElementById('loading').style.display='none';})();
 </script>
 </body>
 </html>
