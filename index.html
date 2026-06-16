@@ -503,6 +503,18 @@ function beep(f=800,d=150){try{if(!aCtx)aCtx=new(window.AudioContext||window.web
 // Sunet de alertă (fișier mp3 încărcat de utilizator) - pentru cooldown 2 min și 4 min
 const ALERT_SOUND_FILE="./alert.mp3";
 let alertAudio=null;
+function unlockAlertAudio(){
+  // Trebuie apelat direct dintr-un user-gesture (tap), altfel iOS Safari blochează play() ulterior
+  if(!alertAudio){
+    alertAudio=new Audio(ALERT_SOUND_FILE);
+    alertAudio.volume=1;
+  }
+  // "Deblocăm" audio-ul: play+pause imediat, în cadrul gestului utilizatorului
+  alertAudio.play().then(()=>{
+    alertAudio.pause();
+    alertAudio.currentTime=0;
+  }).catch(()=>{});
+}
 function playAlertSound(){
   try{
     if(!alertAudio){
@@ -754,6 +766,7 @@ function updateSetUnit(ei,si,val){
 
 // Toggle set
 function toggleSet(ei,si){
+  unlockAlertAudio();
   const d=S.currentDay,s=S.currentSession;
   const data=S.workouts[d][s];
   const set=data.ex[ei].sets[si];
