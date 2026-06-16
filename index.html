@@ -732,6 +732,9 @@ function toggleSet(ei,si){
   if(set.done){
     const exAllDone=data.ex[ei].sets.every(st=>st.done);
     const isLastEx=ei===data.ex.length-1;
+    const isEvening=s==='evening';
+    const setCooldown=isEvening?60:120;
+    const exCooldown=isEvening?150:240;
     if(exAllDone&&isLastEx){
       // Session done! Skip cooldown entirely, go straight to congrats
       skipCooldown();
@@ -740,9 +743,9 @@ function toggleSet(ei,si){
       checkSessionDone();
       return;
     } else if(exAllDone&&!isLastEx){
-      startCooldown(240,'🎯 Exercițiu complet!','4 min până la următorul');
+      startCooldown(exCooldown,'🎯 Exercițiu complet!',isEvening?'2:30 până la următorul':'4 min până la următorul');
     } else {
-      startCooldown(120,'⏱️ Set complet!','2 min cooldown');
+      startCooldown(setCooldown,'⏱️ Set complet!',isEvening?'1 min cooldown':'2 min cooldown');
     }
   }
   save();
