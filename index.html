@@ -2,7 +2,9 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="screen-orientation" content="portrait">
+<meta name="orientation" content="portrait">
 <title>Gym Tracker</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
@@ -154,6 +156,9 @@ canvas{width:100%;height:200px}
 .edit-label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
 
 .loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;color:var(--lime);font-size:14px}
+@media (orientation: landscape){
+  body{transform:rotate(-90deg);transform-origin:left top;width:100vh;height:100vw;position:absolute;top:0;left:0;overflow-x:hidden;overflow-y:auto}
+}
 </style>
 </head>
 <body>
@@ -163,12 +168,12 @@ canvas{width:100%;height:200px}
 <div class="page active" id="page-home">
   <div class="home-header">
     <div>
-      <div class="home-greeting">Salut, campion! 👊</div>
+      <div class="home-greeting">Salut Andrei!</div>
       <strong id="homeDate">Let's get it</strong>
     </div>
     <div style="text-align:right">
       <div style="font-size:11px;color:var(--text-dim)">Ciclu</div>
-      <div style="font-size:18px;font-weight:700;color:var(--lime)">#<span id="homeCycle">1</span></div>
+      <div style="font-size:18px;font-weight:700;color:var(--lime)" id="homeCycle">1</div>
     </div>
   </div>
 
@@ -199,7 +204,6 @@ canvas{width:100%;height:200px}
       <div class="ring-center">
         <div class="ring-streak-num" id="streakNum">0</div>
         <div class="ring-streak-label">Zile Streak</div>
-        <div class="ring-streak-sub" id="streakSub">din 8</div>
       </div>
     </div>
   </div>
@@ -294,7 +298,6 @@ canvas{width:100%;height:200px}
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a4 4 0 014 4c0 1.4-.7 2.6-1.8 3.3L15 12H9l.8-2.7A4 4 0 018 6a4 4 0 014-4zm0 2a2 2 0 100 4 2 2 0 000-4zM7 14h10l1 6H6l1-6z"/></svg>
     Greutate
   </button>
-  <button class="nav-add" onclick="showPage('home')">🥷</button>
   <button class="nav-btn" data-page="settings" onclick="showPage('settings')">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54A.484.484 0 0014 2h-4a.484.484 0 00-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87a.49.49 0 00.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h4c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 00-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
     Setări
@@ -361,6 +364,24 @@ function load(){try{const r=localStorage.getItem('gym2');if(r)S={...S,...JSON.pa
 // Audio
 let aCtx;
 function beep(f=800,d=150){try{if(!aCtx)aCtx=new(window.AudioContext||window.webkitAudioContext)();const o=aCtx.createOscillator(),g=aCtx.createGain();o.connect(g);g.connect(aCtx.destination);o.frequency.value=f;g.gain.setValueAtTime(0.3,aCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,aCtx.currentTime+d/1000);o.start();o.stop(aCtx.currentTime+d/1000);}catch(e){}}
+// Sunet placut, scurt - pentru finalul cooldown-ului de set (2 min)
+function cooldownDoneSound(){
+  try{
+    if(!aCtx)aCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const notes=[660,880]; // ding-ding placut, ascendent
+    notes.forEach((f,i)=>{
+      const o=aCtx.createOscillator(),g=aCtx.createGain();
+      o.connect(g);g.connect(aCtx.destination);
+      o.type='sine';
+      o.frequency.value=f;
+      const start=aCtx.currentTime+i*0.12;
+      g.gain.setValueAtTime(0,start);
+      g.gain.linearRampToValueAtTime(0.25,start+0.02);
+      g.gain.exponentialRampToValueAtTime(0.001,start+0.35);
+      o.start(start);o.stop(start+0.4);
+    });
+  }catch(e){}
+}
 function notifSound(){beep(800,120);setTimeout(()=>beep(1000,120),150);setTimeout(()=>beep(1300,250),300);}
 
 // Pages
@@ -474,7 +495,12 @@ function renderSessionTabs(){
     <button class="sess-btn ${S.currentSession==='evening'?'active':''} ${eDone?'half-done':''}" onclick="setSession('evening')">🌙 Seara ${eDone?'✓':''}</button>
   `;
 }
-function setSession(s){S.currentSession=s;save();renderDayPage();}
+function setSession(s){
+  S.currentSession=s;
+  save();
+  resetSessionTimer();
+  renderDayPage();
+}
 
 function renderExercises(){
   const d=S.currentDay,s=S.currentSession;
@@ -532,18 +558,19 @@ function toggleSet(ei,si){
 function checkSessionDone(){
   const d=S.currentDay,s=S.currentSession;
   if(isSessionDone(d,s)){
-    notifSound();
     if(s==='morning'){
-      // congrats → go home
+      // stop the general timer at end of morning session
+      resetSessionTimer();
       const mName=WD[d].morning.name;
       showCongrats(`${mName} Complet! 🔥`,'Dimineața bifată! Revino seara pentru sesiunea KB.');
     } else {
-      // both done
+      // stop timer at end of evening session
+      resetSessionTimer();
       if(isDayDone(d)){
         const today=new Date().toDateString();
         if(S.lastCompletedDate!==today){S.streak++;S.lastCompletedDate=today;}
         save();
-        showCongrats('Ziua '+d+' Completă! 🏆','Ambele sesiuni terminate. Streak: '+S.streak+' zile!');
+        showCongrats('Ziua '+d+' Completă!','Ambele sesiuni terminate. Streak: '+S.streak+' zile!');
       } else {
         showCongrats('Seara Completă! 🌙','Bun lucru! Ziua '+d+' aproape gata.');
       }
@@ -591,7 +618,7 @@ function startCooldown(secs,title,sub){
   document.getElementById('cooldownModal').classList.add('show');
   updateCD();
   if(cdInterval)clearInterval(cdInterval);
-  cdInterval=setInterval(()=>{cdRemaining--;updateCD();if(cdRemaining<=0){clearInterval(cdInterval);notifSound();setTimeout(skipCooldown,1500);}},1000);
+  cdInterval=setInterval(()=>{cdRemaining--;updateCD();if(cdRemaining<=0){clearInterval(cdInterval);cooldownDoneSound();setTimeout(skipCooldown,1500);}},1000);
 }
 function updateCD(){const m=Math.floor(cdRemaining/60),s=cdRemaining%60;document.getElementById('cdTimer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
 function skipCooldown(){if(cdInterval)clearInterval(cdInterval);document.getElementById('cooldownModal').classList.remove('show');}
