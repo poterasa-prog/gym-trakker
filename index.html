@@ -97,6 +97,29 @@ body{padding-bottom:90px;max-width:500px;margin:0 auto}
 .set-check.ck-done{background:var(--lime);border-color:var(--lime)}
 .set-check.ck-done::after{content:"✓";color:#000;font-weight:bold;font-size:16px}
 
+/* EDIT MODE */
+.edit-toggle-btn{background:var(--card);border:1px solid var(--border);color:var(--text-dim);padding:7px 13px;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer}
+.edit-toggle-btn.on{background:var(--lime);color:#000;border-color:var(--lime)}
+.exercise.edit-mode{border-color:#555}
+.ex-edit-row{display:flex;gap:8px;margin-bottom:10px}
+.ex-name-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:#fff;font-size:14px;font-weight:600}
+.ex-del-btn{width:38px;height:38px;background:#3a1010;border:1px solid #5a2020;border-radius:10px;color:#ff6b6b;cursor:pointer;flex-shrink:0;font-size:16px}
+.set-edit-row{display:flex;align-items:center;gap:8px;padding:8px;background:var(--card2);border-radius:10px;margin-bottom:6px}
+.set-edit-input{width:60px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px;color:#fff;font-size:13px;text-align:center}
+.set-del-btn{background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:18px;padding:4px 8px}
+.add-set-btn{width:100%;padding:10px;background:var(--card2);border:1px dashed var(--border);border-radius:10px;color:var(--text-dim);font-size:13px;cursor:pointer;margin-top:6px}
+.add-ex-btn{width:100%;padding:16px;background:var(--card);border:1px dashed var(--lime);border-radius:18px;color:var(--lime);font-size:14px;font-weight:600;cursor:pointer;margin-top:8px}
+.unit-select{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px;color:#fff;font-size:12px}
+
+/* MUSIC PLAYER */
+.music-player{margin:0 20px 14px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px}
+.music-track-name{font-size:13px;font-weight:600;text-align:center;margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-controls{display:flex;align-items:center;justify-content:center;gap:18px}
+.music-btn{background:var(--card2);border:1px solid var(--border);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+.music-btn.play-btn{width:52px;height:52px;background:var(--lime);border-color:var(--lime);color:#000}
+.music-btn svg{width:18px;height:18px}
+.music-btn.play-btn svg{width:22px;height:22px}
+
 /* ===== WEIGHT PAGE ===== */
 .weight-card{margin:0 20px 12px;background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border)}
 .weight-current{font-size:38px;font-weight:700;color:var(--lime)}
@@ -132,10 +155,10 @@ canvas{width:100%;height:200px}
 .modal-overlay.show{display:flex}
 .modal{background:var(--card);border-radius:28px 28px 0 0;padding:30px 24px 40px;width:100%;max-width:500px;border-top:1px solid var(--border);text-align:center;animation:slideUp 0.3s}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-icon{width:80px;height:80px;border-radius:50%;background:rgba(200,255,61,0.15);border:2px solid var(--lime);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:36px}
+.modal-icon{width:80px;height:80px;border-radius:50%;background:rgba(200,255,61,0.15);border:2px solid var(--lime);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:36px;line-height:1}
 .modal-title{font-size:20px;font-weight:700;margin-bottom:8px}
 .modal-sub{font-size:13px;color:var(--text-dim);margin-bottom:20px}
-.timer-display{font-size:60px;font-weight:800;color:var(--lime);font-variant-numeric:tabular-nums;margin:10px 0 20px;letter-spacing:-2px}
+.timer-display{font-size:60px;font-weight:800;color:var(--lime);font-variant-numeric:tabular-nums;margin:10px 0 20px;letter-spacing:-2px;line-height:1;text-align:center;width:100%}
 .modal-btns{display:flex;gap:10px}
 
 /* CONGRATS MODAL */
@@ -245,9 +268,29 @@ canvas{width:100%;height:200px}
 
   <div class="session-tabs" id="sessionTabs"></div>
 
+  <!-- MUSIC PLAYER -->
+  <div class="music-player">
+    <div class="music-track-name" id="musicTrackName">Niciun playlist încărcat</div>
+    <div class="music-controls">
+      <button class="music-btn" onclick="prevTrack()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button class="music-btn play-btn" id="playBtn" onclick="togglePlay()">
+        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button class="music-btn" onclick="nextTrack()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 6v12l8.5-6z"/></svg>
+      </button>
+    </div>
+    <audio id="audioPlayer" preload="none"></audio>
+  </div>
+
   <div class="timer-row">
     <div class="workout-name" id="workoutName">Push Day 1</div>
-    <div class="timer-pill" id="sessionTimer">00:00</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="edit-toggle-btn" id="editToggleBtn" onclick="toggleEditMode()">✏️ Editează</button>
+      <div class="timer-pill" id="sessionTimer">00:00</div>
+    </div>
   </div>
 
   <div class="exercises" id="exercises"></div>
@@ -302,7 +345,12 @@ canvas{width:100%;height:200px}
 <!-- COOLDOWN MODAL -->
 <div class="modal-overlay" id="cooldownModal">
   <div class="modal">
-    <div class="modal-icon">⏱️</div>
+    <div class="modal-icon">
+      <svg viewBox="0 0 36 36" width="36" height="36" fill="none" stroke="#C8FF3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="18" cy="18" r="14"/>
+        <path d="M18 10v8l6 4"/>
+      </svg>
+    </div>
     <div class="modal-title" id="cdTitle">Cooldown</div>
     <div class="modal-sub" id="cdSub">Pauză</div>
     <div class="timer-display" id="cdTimer">02:00</div>
@@ -342,17 +390,80 @@ canvas{width:100%;height:200px}
 const WD = {
   1:{title:"Push Day 1",morning:{name:"Push Day 1",sub:"Dimineață",ex:[{n:"Incline Smith Machine",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Lateral Shoulders Raises",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Cable Triceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Flat Chest Dumbell Press",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Shoulder Press Machine",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Seated Triceps",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Cable Chest Flyes",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Shoulder Lateral Raises",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Tricep Extension",sets:[{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
   2:{title:"Pull Day 1",morning:{name:"Pull Day 1",sub:"Dimineață",ex:[{n:"Lat Pull Down",sets:[{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Single Arm Dumbbell Row",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Trapez",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"Spider Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Reverse Pec Deck",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Abdomene",sub:"Seara",ex:[{n:"V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Alternative V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Seated In & Outs",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Bicycle Kicks",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Russian Twists",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]}]}},
-  3:{title:"Picioare",morning:{name:"Picioare",sub:"Dimineață",ex:[{n:"Seated Leg Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Smith Squats",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Romanian Deadlift",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Leg Extensions Seated",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Hip Aduction Interior",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Standing Calf",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
+  3:{title:"Legs",morning:{name:"Legs",sub:"Dimineață",ex:[{n:"Seated Leg Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Smith Squats",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Romanian Deadlift",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Leg Extensions Seated",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Hip Aduction Interior",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Standing Calf",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
   4:{title:"Forearms/Biceps/Abs",morning:{name:"Forearms/Biceps/Abs",sub:"Dimineață",ex:[{n:"Wrist Curls",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Abs",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Reverse Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Rotating Machine",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Behind the Back Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Legs Up Lifting",sets:[{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"}]}]},evening:{name:"Forearms",sub:"Seara",ex:[{n:"Pumnii Față & Spate",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Rotește Pumnii",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Sapă în Orez",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Strânge Orezul",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]}]}},
   5:{title:"Push Day 2",morning:{name:"Push Day 2",sub:"Dimineață",ex:[{n:"Decline Chest Push",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Lateral Shoulders Raises Machine",sets:[{kg:51,reps:12,u:"kg"},{kg:51,reps:12,u:"kg"},{kg:51,reps:12,u:"kg"}]},{n:"Cable Triceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Flat Chest Dumbell Press",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Shoulder Press Machine",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Seated Triceps",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Cable Chest Flyes",sets:[{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"},{kg:10,reps:12,u:"kg side"}]},{n:"Shoulder Lateral Raises",sets:[{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"},{kg:45,reps:12,u:"kg"}]},{n:"Tricep Extension",sets:[{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"},{kg:27,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
   6:{title:"Pull Day 2",morning:{name:"Pull Day 2",sub:"Dimineață",ex:[{n:"Cable Pulls",sets:[{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"},{kg:39,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Single Arm Dumbbell Row",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Trapez",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"Spider Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Reverse Pec Deck",sets:[{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"},{kg:22,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Abdomene",sub:"Seara",ex:[{n:"V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Alternative V Ups",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Seated In & Outs",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Bicycle Kicks",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]},{n:"Russian Twists",sets:[{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"},{kg:0,reps:15,u:"reps"}]}]}},
-  7:{title:"Picioare",morning:{name:"Picioare",sub:"Dimineață",ex:[{n:"Seated Leg Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Smith Squats",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Romanian Deadlift",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Leg Extensions Pe Burtă",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Hip Aduction Exterior",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Standing Calf",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
+  7:{title:"Legs",morning:{name:"Legs",sub:"Dimineață",ex:[{n:"Seated Leg Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Smith Squats",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Romanian Deadlift",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Leg Extensions Pe Burtă",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Hip Aduction Exterior",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Standing Calf",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]}]},evening:{name:"Kettlebell",sub:"Seara",ex:[{n:"Kettlebell Swings",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Around the World",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right in Knees",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Left & Right Seated",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]},{n:"Kettlebell Kneeling Wood Choppers",sets:[{kg:10,reps:50,u:"kg"},{kg:10,reps:50,u:"kg"}]}]}},
   8:{title:"Forearms/Biceps/Abs",morning:{name:"Forearms/Biceps/Abs",sub:"Dimineață",ex:[{n:"Wrist Curls",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Abs",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Reverse Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Rotating Machine",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Behind the Back Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Legs Up Lifting",sets:[{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"}]}]},evening:{name:"Forearms",sub:"Seara",ex:[{n:"Pumnii Față & Spate",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Rotește Pumnii",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Sapă în Orez",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Strânge Orezul",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]}]}}
 };
 
 let S={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};
+let editMode=false;
 
-function initW(){for(let d=1;d<=8;d++){if(!S.workouts[d])S.workouts[d]={morning:null,evening:null};['morning','evening'].forEach(s=>{if(!S.workouts[d][s]){S.workouts[d][s]={ex:WD[d][s].ex.map(e=>({sets:e.sets.map(st=>({...st,done:false}))}))};}});}}
+// ===== MUSIC PLAYER =====
+// Pune fișierele mp3 în repo, în folderul "music/", cu numele exacte de mai jos
+// (sau modifică lista cu numele tale de fișiere)
+const PLAYLIST=[
+  {name:"Motivare 1",file:"music/track1.mp3"},
+  {name:"Motivare 2",file:"music/track2.mp3"}
+];
+let currentTrack=0;
+let isPlaying=false;
+
+function initMusic(){
+  const audio=document.getElementById('audioPlayer');
+  if(!audio)return;
+  loadTrack(currentTrack);
+  audio.addEventListener('ended',()=>nextTrack());
+}
+function loadTrack(i){
+  const audio=document.getElementById('audioPlayer');
+  if(!audio||!PLAYLIST[i])return;
+  currentTrack=i;
+  audio.src=PLAYLIST[i].file;
+  const nameEl=document.getElementById('musicTrackName');
+  if(nameEl)nameEl.textContent=PLAYLIST[i].name;
+}
+function togglePlay(){
+  const audio=document.getElementById('audioPlayer');
+  if(!audio)return;
+  if(isPlaying){
+    audio.pause();
+    isPlaying=false;
+  } else {
+    audio.play().catch(()=>{});
+    isPlaying=true;
+  }
+  updatePlayIcon();
+}
+function updatePlayIcon(){
+  const icon=document.getElementById('playIcon');
+  if(!icon)return;
+  icon.innerHTML=isPlaying?'<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>':'<path d="M8 5v14l11-7z"/>';
+}
+function nextTrack(){
+  const wasPlaying=isPlaying;
+  loadTrack((currentTrack+1)%PLAYLIST.length);
+  if(wasPlaying){
+    const audio=document.getElementById('audioPlayer');
+    audio.play().catch(()=>{});
+    isPlaying=true;
+    updatePlayIcon();
+  }
+}
+function prevTrack(){
+  const wasPlaying=isPlaying;
+  loadTrack((currentTrack-1+PLAYLIST.length)%PLAYLIST.length);
+  if(wasPlaying){
+    const audio=document.getElementById('audioPlayer');
+    audio.play().catch(()=>{});
+    isPlaying=true;
+    updatePlayIcon();
+  }
+}
+
+function initW(){for(let d=1;d<=8;d++){if(!S.workouts[d])S.workouts[d]={morning:null,evening:null};['morning','evening'].forEach(s=>{if(!S.workouts[d][s]){S.workouts[d][s]={ex:WD[d][s].ex.map(e=>({n:e.n,sets:e.sets.map(st=>({...st,done:false}))}))};}});}}
 function save(){try{localStorage.setItem('gym2',JSON.stringify(S));}catch(e){}}
 function load(){try{const r=localStorage.getItem('gym2');if(r)S={...S,...JSON.parse(r)};}catch(e){}initW();}
 
@@ -390,7 +501,8 @@ function showPage(p){
 
 // ===== HOME =====
 function renderHome(){
-  document.getElementById('homeDate').textContent=new Date().toLocaleDateString('ro-RO',{weekday:'long',day:'numeric',month:'long'});
+  const dateStr=new Date().toLocaleDateString('ro-RO',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('homeDate').textContent=dateStr.charAt(0).toUpperCase()+dateStr.slice(1);
   document.getElementById('homeCycle').textContent=S.cycle;
   // Streak ring — 8 days per cycle, cumulative
   const streakInCycle=S.streak%8||( S.streak>0&&S.streak%8===0?8:0);
@@ -439,6 +551,7 @@ function isDayDone(d){return isSessionDone(d,'morning')&&isSessionDone(d,'evenin
 function openDay(d){
   S.currentDay=d;
   S.currentSession='morning';
+  editMode=false;
   save();
   renderDayPage();
   showPageRaw('day');
@@ -457,6 +570,7 @@ function renderDayPage(){
   renderDayRing();
   renderSessionTabs();
   renderExercises();
+  if(!document.getElementById('audioPlayer').src)initMusic();
 }
 
 function renderDayRing(){
@@ -490,6 +604,7 @@ function renderSessionTabs(){
 }
 function setSession(s){
   S.currentSession=s;
+  editMode=false;
   save();
   resetSessionTimer();
   renderDayPage();
@@ -500,29 +615,116 @@ function renderExercises(){
   const def=WD[d][s];
   const data=S.workouts[d][s];
   document.getElementById('workoutName').textContent=def.name;
+  document.getElementById('editToggleBtn').classList.toggle('on',editMode);
+  document.getElementById('editToggleBtn').textContent=editMode?'✓ Salvat':'✏️ Editează';
   const wrap=document.getElementById('exercises');
   wrap.innerHTML='';
+
+  if(editMode){
+    data.ex.forEach((ex,ei)=>{
+      const div=document.createElement('div');
+      div.className='exercise edit-mode';
+      let setsHtml='';
+      ex.sets.forEach((set,si)=>{
+        const isW=set.u!=='reps';
+        setsHtml+=`<div class="set-edit-row">
+          <div class="set-num">Set ${si+1}</div>
+          ${isW?`<input class="set-edit-input" type="number" value="${set.kg}" placeholder="kg" onchange="updateSetField(${ei},${si},'kg',this.value)">`:''}
+          <select class="unit-select" onchange="updateSetUnit(${ei},${si},this.value)">
+            <option value="kg" ${isW&&set.u==='kg'?'selected':''}>kg</option>
+            <option value="kg side" ${isW&&set.u==='kg side'?'selected':''}>kg side</option>
+            <option value="reps" ${!isW?'selected':''}>doar reps</option>
+          </select>
+          <input class="set-edit-input" type="number" value="${set.reps}" placeholder="reps" onchange="updateSetField(${ei},${si},'reps',this.value)">
+          <button class="set-del-btn" onclick="deleteSet(${ei},${si})">✕</button>
+        </div>`;
+      });
+      div.innerHTML=`
+        <div class="ex-edit-row">
+          <input class="ex-name-input" value="${ex.n}" onchange="updateExName(${ei},this.value)">
+          <button class="ex-del-btn" onclick="deleteExercise(${ei})">🗑️</button>
+        </div>
+        <div class="sets">${setsHtml}</div>
+        <button class="add-set-btn" onclick="addSet(${ei})">+ Adaugă Set</button>
+      `;
+      wrap.appendChild(div);
+    });
+    const addExBtn=document.createElement('button');
+    addExBtn.className='add-ex-btn';
+    addExBtn.textContent='+ Adaugă Exercițiu Nou';
+    addExBtn.onclick=addExercise;
+    wrap.appendChild(addExBtn);
+    return;
+  }
+
   data.ex.forEach((ex,ei)=>{
-    const exDef=def.ex[ei];
     const allDone=ex.sets.every(st=>st.done);
     const someDone=ex.sets.some(st=>st.done);
     const div=document.createElement('div');
     div.className='exercise'+(allDone?' ex-done':someDone?' ex-active':'');
     let sHtml='';
     ex.sets.forEach((set,si)=>{
-      const isW=exDef.sets[si].u!=='reps';
+      const isW=set.u!=='reps';
       sHtml+=`<div class="set-row ${set.done?'s-done':''}">
         <div class="set-num">Set ${si+1}</div>
         <div class="set-vals">
-          ${isW?`<div class="set-val" onclick="openEdit(${ei},${si},'kg')"><span class="num">${set.kg}</span><span class="unit">${exDef.sets[si].u}</span></div>`:''}
+          ${isW?`<div class="set-val" onclick="openEdit(${ei},${si},'kg')"><span class="num">${set.kg}</span><span class="unit">${set.u}</span></div>`:''}
           <div class="set-val" onclick="openEdit(${ei},${si},'reps')"><span class="num">${set.reps}</span><span class="unit">reps</span></div>
         </div>
         <button class="set-check ${set.done?'ck-done':''}" onclick="toggleSet(${ei},${si})"></button>
       </div>`;
     });
-    div.innerHTML=`<div class="ex-head"><div class="ex-num">${ei+1}</div><div class="ex-name">${exDef.n}</div></div><div class="sets">${sHtml}</div>`;
+    div.innerHTML=`<div class="ex-head"><div class="ex-num">${ei+1}</div><div class="ex-name">${ex.n}</div></div><div class="sets">${sHtml}</div>`;
     wrap.appendChild(div);
   });
+}
+
+function toggleEditMode(){
+  editMode=!editMode;
+  renderExercises();
+}
+function updateExName(ei,val){
+  S.workouts[S.currentDay][S.currentSession].ex[ei].n=val||'Exercițiu';
+  save();
+}
+function deleteExercise(ei){
+  if(!confirm('Ștergi acest exercițiu?'))return;
+  S.workouts[S.currentDay][S.currentSession].ex.splice(ei,1);
+  save();renderExercises();
+}
+function addExercise(){
+  const name=prompt('Nume exercițiu:');
+  if(!name)return;
+  const numSets=parseInt(prompt('Câte seturi?','3'))||3;
+  const useKg=confirm('Are greutate (kg)? OK = da, Anulare = doar reps');
+  const kg=useKg?(parseFloat(prompt('Greutate (kg):','10'))||0):0;
+  const reps=parseInt(prompt('Repetări per set:','12'))||12;
+  const sets=[];
+  for(let i=0;i<numSets;i++)sets.push({kg,reps,u:useKg?'kg':'reps',done:false});
+  S.workouts[S.currentDay][S.currentSession].ex.push({n:name,sets});
+  save();renderExercises();
+}
+function addSet(ei){
+  const ex=S.workouts[S.currentDay][S.currentSession].ex[ei];
+  const last=ex.sets[ex.sets.length-1];
+  ex.sets.push({kg:last?last.kg:0,reps:last?last.reps:12,u:last?last.u:'kg',done:false});
+  save();renderExercises();
+}
+function deleteSet(ei,si){
+  const ex=S.workouts[S.currentDay][S.currentSession].ex[ei];
+  if(ex.sets.length<=1){alert('Trebuie cel puțin un set.');return;}
+  ex.sets.splice(si,1);
+  save();renderExercises();
+}
+function updateSetField(ei,si,field,val){
+  const set=S.workouts[S.currentDay][S.currentSession].ex[ei].sets[si];
+  set[field]=parseFloat(val)||0;
+  save();
+}
+function updateSetUnit(ei,si,val){
+  const set=S.workouts[S.currentDay][S.currentSession].ex[ei].sets[si];
+  set.u=val;
+  save();renderExercises();
 }
 
 // Toggle set
@@ -535,11 +737,15 @@ function toggleSet(ei,si){
   if(set.done){
     const exAllDone=data.ex[ei].sets.every(st=>st.done);
     const isLastEx=ei===data.ex.length-1;
-    if(exAllDone&&!isLastEx){
-      startCooldown(240,'🎯 Exercițiu complet!','4 min până la următorul');
-    } else if(exAllDone&&isLastEx){
-      // Session done!
+    if(exAllDone&&isLastEx){
+      // Session done! Skip cooldown entirely, go straight to congrats
+      skipCooldown();
+      save();
+      renderDayPage();
       checkSessionDone();
+      return;
+    } else if(exAllDone&&!isLastEx){
+      startCooldown(240,'🎯 Exercițiu complet!','4 min până la următorul');
     } else {
       startCooldown(120,'⏱️ Set complet!','2 min cooldown');
     }
