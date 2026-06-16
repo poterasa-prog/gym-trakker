@@ -470,22 +470,16 @@ function load(){try{const r=localStorage.getItem('gym2');if(r)S={...S,...JSON.pa
 // Audio
 let aCtx;
 function beep(f=800,d=150){try{if(!aCtx)aCtx=new(window.AudioContext||window.webkitAudioContext)();const o=aCtx.createOscillator(),g=aCtx.createGain();o.connect(g);g.connect(aCtx.destination);o.frequency.value=f;g.gain.setValueAtTime(0.3,aCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,aCtx.currentTime+d/1000);o.start();o.stop(aCtx.currentTime+d/1000);}catch(e){}}
-// Sunet placut, scurt - pentru finalul cooldown-ului de set (2 min)
-function cooldownDoneSound(){
+// Sunet de alertă (fișier mp3 încărcat de utilizator) - pentru cooldown 2 min și 4 min
+const ALERT_SOUND_FILE="./alert.mp3.MP3";
+let alertAudio=null;
+function playAlertSound(){
   try{
-    if(!aCtx)aCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const notes=[660,880]; // ding-ding placut, ascendent
-    notes.forEach((f,i)=>{
-      const o=aCtx.createOscillator(),g=aCtx.createGain();
-      o.connect(g);g.connect(aCtx.destination);
-      o.type='sine';
-      o.frequency.value=f;
-      const start=aCtx.currentTime+i*0.12;
-      g.gain.setValueAtTime(0,start);
-      g.gain.linearRampToValueAtTime(0.25,start+0.02);
-      g.gain.exponentialRampToValueAtTime(0.001,start+0.35);
-      o.start(start);o.stop(start+0.4);
-    });
+    if(!alertAudio){
+      alertAudio=new Audio(ALERT_SOUND_FILE);
+    }
+    alertAudio.currentTime=0;
+    alertAudio.play().catch(()=>{});
   }catch(e){}
 }
 function notifSound(){beep(800,120);setTimeout(()=>beep(1000,120),150);setTimeout(()=>beep(1300,250),300);}
@@ -817,7 +811,7 @@ function startCooldown(secs,title,sub){
   document.getElementById('cooldownModal').classList.add('show');
   updateCD();
   if(cdInterval)clearInterval(cdInterval);
-  cdInterval=setInterval(()=>{cdRemaining--;updateCD();if(cdRemaining<=0){clearInterval(cdInterval);cooldownDoneSound();setTimeout(skipCooldown,1500);}},1000);
+  cdInterval=setInterval(()=>{cdRemaining--;updateCD();if(cdRemaining<=0){clearInterval(cdInterval);playAlertSound();setTimeout(skipCooldown,1500);}},1000);
 }
 function updateCD(){const m=Math.floor(cdRemaining/60),s=cdRemaining%60;document.getElementById('cdTimer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
 function skipCooldown(){if(cdInterval)clearInterval(cdInterval);document.getElementById('cooldownModal').classList.remove('show');}
