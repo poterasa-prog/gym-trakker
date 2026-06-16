@@ -317,12 +317,12 @@ canvas{width:100%;height:200px}
   <div class="settings-section">
     <h3>Reset Ciclu Nou</h3>
     <p>Resetează toate cele 8 zile. Streak-ul și greutățile rămân.</p>
-    <button class="btn btn-primary" onclick="resetCycle()" style="width:100%">Start Ciclu Nou 🔄</button>
+    <button class="btn btn-primary" onclick="confirmResetCycle()" style="width:100%">Start Ciclu Nou</button>
   </div>
   <div class="settings-section">
     <h3>Reset Total</h3>
     <p>Șterge TOT. Acțiune ireversibilă.</p>
-    <button class="btn btn-danger" onclick="resetAll()" style="width:100%">Reset Total ⚠️</button>
+    <button class="btn btn-danger" onclick="confirmResetAll()" style="width:100%">Reset Total</button>
   </div>
 </div>
 
@@ -383,6 +383,35 @@ canvas{width:100%;height:200px}
   <div class="congrats-title" id="congratsTitle">Felicitări! 🎉</div>
   <div class="congrats-sub" id="congratsSub">Sesiunea completată!</div>
   <button class="congrats-close" onclick="closeCongrats()">Închide</button>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal" style="align-items:center">
+  <div class="modal">
+    <div class="modal-title" id="confirmTitle">Confirmare</div>
+    <div class="modal-sub" id="confirmSub">Ești sigur?</div>
+    <div class="modal-btns">
+      <button class="btn btn-secondary" onclick="closeConfirm()">Anulează</button>
+      <button class="btn btn-primary" id="confirmOkBtn" onclick="">Confirmă</button>
+    </div>
+  </div>
+</div>
+
+<!-- INFO MODAL -->
+<div class="modal-overlay" id="infoModal" style="align-items:center">
+  <div class="modal">
+    <div class="modal-icon">
+      <svg viewBox="0 0 36 36" width="32" height="32" fill="none" stroke="#C8FF3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="18" cy="18" r="14"/>
+        <path d="M18 12v8M18 24h.01"/>
+      </svg>
+    </div>
+    <div class="modal-title" id="infoTitle">Info</div>
+    <div class="modal-sub" id="infoSub"></div>
+    <div class="modal-btns">
+      <button class="btn btn-primary" onclick="closeInfo()" style="flex:1">OK</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -749,7 +778,9 @@ function toggleSet(ei,si){
     }
   }
   save();
+  const scrollY=window.scrollY;
   renderDayPage();
+  window.scrollTo(0,scrollY);
 }
 
 function checkSessionDone(){
@@ -853,7 +884,10 @@ function saveEdit(){
   if(!editCtx)return;
   const val=parseFloat(document.getElementById('editInput').value)||0;
   S.workouts[S.currentDay][S.currentSession].ex[editCtx.ei].sets[editCtx.si][editCtx.field]=val;
-  closeEdit();save();renderExercises();
+  closeEdit();save();
+  const scrollY=window.scrollY;
+  renderExercises();
+  window.scrollTo(0,scrollY);
 }
 
 // Weight
@@ -889,9 +923,42 @@ function drawChart(){
   data.forEach((d,i)=>{const x=data.length===1?w/2:px+(w-2*px)*i/(data.length-1);const y=h-py-(h-2*py)*(d.kg-min)/range;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='#C8FF3D';ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();});
 }
 
+// Custom confirm/info modals
+function showConfirm(title,sub,onConfirm){
+  document.getElementById('confirmTitle').textContent=title;
+  document.getElementById('confirmSub').textContent=sub;
+  const okBtn=document.getElementById('confirmOkBtn');
+  okBtn.onclick=()=>{closeConfirm();onConfirm();};
+  document.getElementById('confirmModal').classList.add('show');
+}
+function closeConfirm(){document.getElementById('confirmModal').classList.remove('show');}
+function showInfo(title,sub){
+  document.getElementById('infoTitle').textContent=title;
+  document.getElementById('infoSub').textContent=sub;
+  document.getElementById('infoModal').classList.add('show');
+}
+function closeInfo(){document.getElementById('infoModal').classList.remove('show');}
+
+function confirmResetCycle(){
+  showConfirm('Reset Ciclu Nou','Toate cele 8 zile se resetează. Streak-ul rămâne neschimbat.',()=>{
+    resetCycle();
+  });
+}
+function confirmResetAll(){
+  showConfirm('Reset Total','Această acțiune șterge tot: streak, cicluri, greutăți, progres. Nu poate fi anulată.',()=>{
+    resetAll();
+  });
+}
+
 // Reset
-function resetCycle(){if(!confirm('Reset ciclu nou? Streak rămâne.'))return;S.cycle++;S.workouts={};initW();resetSessionTimer();save();renderHome();showPage('home');alert('Ciclu #'+S.cycle+' început! 💪');}
-function resetAll(){if(!confirm('RESET TOTAL?'))return;if(!confirm('Sigur?'))return;S={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};initW();resetSessionTimer();save();renderHome();}
+function resetCycle(){
+  S.cycle++;S.workouts={};initW();resetSessionTimer();save();renderHome();showPage('home');
+  showInfo('Ciclu Nou','Ciclul #'+S.cycle+' a început.');
+}
+function resetAll(){
+  S={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};
+  initW();resetSessionTimer();save();renderHome();
+}
 
 // Init
 (function(){load();renderHome();document.getElementById('loading').style.display='none';})();
