@@ -399,8 +399,6 @@ function renderHome(){
   document.getElementById('bigRingFill').style.strokeDashoffset=circ-(circ*pct);
   document.getElementById('bigRingInner').style.strokeDashoffset=452.4-(452.4*pct);
   document.getElementById('streakNum').textContent=S.streak;
-  const inCycle=S.streak===0?0:(streakInCycle===0?8:streakInCycle);
-  document.getElementById('streakSub').textContent=`${inCycle} din 8 în ciclu`;
   renderDaysGrid();
 }
 
