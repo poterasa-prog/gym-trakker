@@ -112,6 +112,14 @@ body{padding-bottom:90px;max-width:500px;margin:0 auto}
 .add-ex-btn{width:100%;padding:16px;background:var(--card);border:1px dashed var(--lime);border-radius:18px;color:var(--lime);font-size:14px;font-weight:600;cursor:pointer;margin-top:8px}
 .unit-select{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px;color:#fff;font-size:12px}
 
+/* WARMUP */
+.warmup-card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:12px;border:1px solid var(--border);transition:all 0.3s}
+.warmup-card.warmup-done{border-color:var(--green);opacity:0.7}
+.warmup-card.warmup-active{border-color:var(--lime)}
+.warmup-row{display:flex;align-items:center;gap:10px;padding:10px;background:var(--card2);border-radius:12px}
+.warmup-icon{width:28px;height:28px;background:var(--lime);color:#000;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.warmup-label{flex:1;font-size:14px;font-weight:600}
+
 /* MUSIC PLAYER */
 .music-player{margin:0 20px 14px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px}
 .music-track-name{font-size:13px;font-weight:600;text-align:center;margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -144,6 +152,20 @@ canvas{width:100%;height:200px}
 .page-header{padding:24px 20px 10px}
 .page-header strong{font-size:20px}
 .page-header .sub{font-size:13px;color:var(--text-dim)}
+
+/* HISTORY */
+.history-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 20px}
+.history-circle{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+.history-circle-dot{width:64px;height:64px;border-radius:50%;background:var(--card);border:2px solid var(--lime);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--lime)}
+.history-circle-day{font-size:10px;color:var(--text-dim);text-transform:uppercase;font-weight:600}
+.history-circle-date{font-size:11px;font-weight:700}
+.history-empty{text-align:center;padding:60px 20px;color:var(--text-dim);font-size:13px}
+.history-detail-ex{background:var(--card);border-radius:18px;padding:14px 16px;margin:0 20px 10px;border:1px solid var(--border)}
+.history-detail-name{font-size:14px;font-weight:600;margin-bottom:8px}
+.history-detail-sets{display:flex;flex-wrap:wrap;gap:6px}
+.history-set-chip{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--text-dim)}
+.history-set-chip b{color:#fff}
+.history-session-title{padding:14px 20px 8px;font-size:13px;font-weight:700;color:var(--lime);text-transform:uppercase;letter-spacing:0.5px}
 
 /* BUTTONS */
 .btn{padding:14px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;border:none;flex:1;transition:all 0.2s}
@@ -312,6 +334,26 @@ canvas{width:100%;height:200px}
   <div class="log-list" id="weightLog"></div>
 </div>
 
+<!-- HISTORY PAGE -->
+<div class="page" id="page-history">
+  <div class="page-header"><strong>Istoric</strong><div class="sub">Antrenamentele tale anterioare</div></div>
+  <div id="historyGrid"></div>
+</div>
+
+<!-- HISTORY DETAIL PAGE -->
+<div class="page" id="page-history-detail">
+  <div class="day-detail-header">
+    <div class="back-btn" onclick="showPage('history')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="18" height="18"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div>
+      <div class="day-detail-title" id="historyDetailTitle">Ziua 1</div>
+      <div class="day-detail-sub" id="historyDetailSub">16 Iunie 2026</div>
+    </div>
+  </div>
+  <div id="historyDetailContent"></div>
+</div>
+
 <!-- SETTINGS PAGE -->
 <div class="page" id="page-settings">
   <div class="page-header"><strong>Setări</strong><div class="sub">Manage your data</div></div>
@@ -336,6 +378,10 @@ canvas{width:100%;height:200px}
   <button class="nav-btn" data-page="weight" onclick="showPage('weight')">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a4 4 0 014 4c0 1.4-.7 2.6-1.8 3.3L15 12H9l.8-2.7A4 4 0 018 6a4 4 0 014-4zm0 2a2 2 0 100 4 2 2 0 000-4zM7 14h10l1 6H6l1-6z"/></svg>
     Greutate
+  </button>
+  <button class="nav-btn" data-page="history" onclick="showPage('history')">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7 6.93 6.93 0 01-4.95-2.05l-1.41 1.41A8.93 8.93 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8z"/></svg>
+    Istoric
   </button>
   <button class="nav-btn" data-page="settings" onclick="showPage('settings')">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54A.484.484 0 0014 2h-4a.484.484 0 00-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87a.49.49 0 00.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h4c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 00-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
@@ -428,7 +474,7 @@ const WD = {
   8:{title:"Forearms/Biceps/Abs",morning:{name:"Forearms/Biceps/Abs",sub:"Dimineață",ex:[{n:"Wrist Curls",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Crossbody Hammer Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Abs",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Reverse Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Dumbbell Drag Curl",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Seated Rotating Machine",sets:[{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"},{kg:35,reps:12,u:"kg"}]},{n:"Behind the Back Bar",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"CBUM Biceps",sets:[{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"},{kg:6,reps:12,u:"kg"}]},{n:"Legs Up Lifting",sets:[{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"},{kg:0,reps:12,u:"reps"}]}]},evening:{name:"Forearms",sub:"Seara",ex:[{n:"Pumnii Față & Spate",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Rotește Pumnii",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Sapă în Orez",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]},{n:"Strânge Orezul",sets:[{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"},{kg:0,reps:50,u:"reps"}]}]}}
 };
 
-let S={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[]};
+let S={cycle:1,streak:0,lastCompletedDate:null,currentDay:1,currentSession:'morning',workouts:{},weightLog:[],history:[]};
 let editMode=false;
 
 // ===== MUSIC PLAYER =====
@@ -493,9 +539,9 @@ function prevTrack(){
   }
 }
 
-function initW(){for(let d=1;d<=8;d++){if(!S.workouts[d])S.workouts[d]={morning:null,evening:null};['morning','evening'].forEach(s=>{if(!S.workouts[d][s]){S.workouts[d][s]={ex:WD[d][s].ex.map(e=>({n:e.n,sets:e.sets.map(st=>({...st,done:false}))})),duration:0};}else if(S.workouts[d][s].duration===undefined){S.workouts[d][s].duration=0;}});}}
+function initW(){for(let d=1;d<=8;d++){if(!S.workouts[d])S.workouts[d]={morning:null,evening:null};['morning','evening'].forEach(s=>{if(!S.workouts[d][s]){S.workouts[d][s]={ex:WD[d][s].ex.map(e=>({n:e.n,sets:e.sets.map(st=>({...st,done:false}))})),duration:0,warmupDone:false};}else{if(S.workouts[d][s].duration===undefined)S.workouts[d][s].duration=0;if(S.workouts[d][s].warmupDone===undefined)S.workouts[d][s].warmupDone=false;}});}}
 function save(){try{localStorage.setItem('gym2',JSON.stringify(S));}catch(e){}}
-function load(){try{const r=localStorage.getItem('gym2');if(r)S={...S,...JSON.parse(r)};}catch(e){}initW();}
+function load(){try{const r=localStorage.getItem('gym2');if(r)S={...S,...JSON.parse(r)};}catch(e){}if(!S.history)S.history=[];initW();}
 
 // Audio
 let aCtx;
@@ -533,6 +579,7 @@ function showPage(p){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));
   if(p==='home')renderHome();
   if(p==='weight')renderWeight();
+  if(p==='history')renderHistory();
 }
 
 // ===== HOME =====
@@ -582,6 +629,72 @@ function renderDaysGrid(){
 
 function isSessionDone(d,s){const w=S.workouts[d];return w&&w[s]&&w[s].ex.every(e=>e.sets.every(st=>st.done));}
 function isDayDone(d){return isSessionDone(d,'morning')&&isSessionDone(d,'evening');}
+
+function saveDayToHistory(d){
+  const morning=S.workouts[d].morning;
+  const evening=S.workouts[d].evening;
+  const snapshot={
+    date:new Date().toISOString(),
+    cycle:S.cycle,
+    dayNum:d,
+    title:WD[d].title,
+    morning:{name:WD[d].morning.name,duration:morning.duration||0,ex:morning.ex.map(e=>({n:e.n,sets:e.sets.map(st=>({kg:st.kg,reps:st.reps,u:st.u}))}))},
+    evening:{name:WD[d].evening.name,duration:evening.duration||0,ex:evening.ex.map(e=>({n:e.n,sets:e.sets.map(st=>({kg:st.kg,reps:st.reps,u:st.u}))}))}
+  };
+  S.history.push(snapshot);
+}
+
+function renderHistory(){
+  const grid=document.getElementById('historyGrid');
+  if(!S.history.length){
+    grid.innerHTML='<div class="history-empty">Niciun antrenament salvat încă.<br>Completează o zi întreagă pentru a o vedea aici.</div>';
+    return;
+  }
+  grid.innerHTML='<div class="history-grid" id="historyGridInner"></div>';
+  const inner=document.getElementById('historyGridInner');
+  [...S.history].reverse().forEach((h,i)=>{
+    const realIdx=S.history.length-1-i;
+    const d=new Date(h.date);
+    const dayNum=d.getDate();
+    const monthShort=d.toLocaleDateString('ro-RO',{month:'short'}).replace('.','');
+    const circle=document.createElement('div');
+    circle.className='history-circle';
+    circle.onclick=()=>openHistoryDetail(realIdx);
+    circle.innerHTML=`
+      <div class="history-circle-dot">
+        <div class="history-circle-day">${monthShort}</div>
+        <div class="history-circle-date">${dayNum}</div>
+      </div>
+      <div class="history-circle-day">Ziua ${h.dayNum}</div>
+    `;
+    inner.appendChild(circle);
+  });
+}
+
+function openHistoryDetail(idx){
+  const h=S.history[idx];
+  const d=new Date(h.date);
+  document.getElementById('historyDetailTitle').textContent='Ziua '+h.dayNum;
+  document.getElementById('historyDetailSub').textContent=d.toLocaleDateString('ro-RO',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+' • Ciclu #'+h.cycle;
+
+  const fmtDuration=(sec)=>{if(!sec)return '--';const m=Math.floor(sec/60),s=sec%60;return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;};
+
+  let html='';
+  [['morning','☀️ Dimineață'],['evening','🌙 Seara']].forEach(([key,label])=>{
+    const sess=h[key];
+    html+=`<div class="history-session-title">${label} • ${sess.name} • ${fmtDuration(sess.duration)}</div>`;
+    sess.ex.forEach(ex=>{
+      let chips='';
+      ex.sets.forEach((st,si)=>{
+        const isW=st.u!=='reps';
+        chips+=`<div class="history-set-chip">S${si+1}: ${isW?`<b>${st.kg}${st.u==='kg side'?' kg/lat':' kg'}</b> × `:''}<b>${st.reps}</b> reps</div>`;
+      });
+      html+=`<div class="history-detail-ex"><div class="history-detail-name">${ex.n}</div><div class="history-detail-sets">${chips}</div></div>`;
+    });
+  });
+  document.getElementById('historyDetailContent').innerHTML=html;
+  showPageRaw('history-detail');
+}
 
 // ===== OPEN DAY =====
 function openDay(d){
@@ -656,6 +769,21 @@ function renderExercises(){
   document.getElementById('editToggleBtn').textContent=editMode?'✓ Salvat':'✏️ Editează';
   const wrap=document.getElementById('exercises');
   wrap.innerHTML='';
+
+  if(!editMode&&s==='morning'){
+    const wDone=data.warmupDone;
+    const wCard=document.createElement('div');
+    wCard.className='warmup-card'+(wDone?' warmup-done':'');
+    wCard.innerHTML=`
+      <div class="ex-head"><div class="ex-num">🔥</div><div class="ex-name">Încălzire 5 minute</div></div>
+      <div class="warmup-row">
+        <div class="warmup-icon">${wDone?'✓':'⏱'}</div>
+        <div class="warmup-label">${wDone?'Încălzire completă':'Set 1 • 5:00 minute'}</div>
+        <button class="set-check ${wDone?'ck-done':''}" onclick="toggleWarmup()"></button>
+      </div>
+    `;
+    wrap.appendChild(wCard);
+  }
 
   if(editMode){
     data.ex.forEach((ex,ei)=>{
@@ -764,6 +892,22 @@ function updateSetUnit(ei,si,val){
   save();renderExercises();
 }
 
+// Warmup
+function toggleWarmup(){
+  const data=S.workouts[S.currentDay][S.currentSession];
+  if(data.warmupDone){
+    data.warmupDone=false;
+    save();renderExercises();
+    return;
+  }
+  unlockAlertAudio();
+  if(!sessionTimerRunning)startSessionTimer();
+  startCooldown(300,'🔥 Încălzire!','5 min - pregătește-te',()=>{
+    data.warmupDone=true;
+    save();renderExercises();
+  });
+}
+
 // Toggle set
 function toggleSet(ei,si){
   unlockAlertAudio();
@@ -810,6 +954,7 @@ function checkSessionDone(){
       stopSessionTimerAndSave();
       if(isDayDone(d)){
         S.streak++;
+        saveDayToHistory(d);
         save();
         showCongrats('Ziua '+d+' Completă!','Ambele sesiuni terminate. Streak: '+S.streak+' zile!');
       } else {
@@ -869,15 +1014,16 @@ function resetSessionTimer(){
 }
 
 // Cooldown
-let cdInterval=null,cdRemaining=0;
-function startCooldown(secs,title,sub){
+let cdInterval=null,cdRemaining=0,cdOnDone=null;
+function startCooldown(secs,title,sub,onDone){
   cdRemaining=secs;
+  cdOnDone=onDone||null;
   document.getElementById('cdTitle').textContent=title;
   document.getElementById('cdSub').textContent=sub;
   document.getElementById('cooldownModal').classList.add('show');
   updateCD();
   if(cdInterval)clearInterval(cdInterval);
-  cdInterval=setInterval(()=>{cdRemaining--;updateCD();if(cdRemaining<=0){clearInterval(cdInterval);playAlertSound();setTimeout(skipCooldown,1500);}},1000);
+  cdInterval=setInterval(()=>{cdRemaining--;updateCD();if(cdRemaining<=0){clearInterval(cdInterval);playAlertSound();setTimeout(()=>{skipCooldown();if(cdOnDone){cdOnDone();cdOnDone=null;}},1500);}},1000);
 }
 function updateCD(){const m=Math.floor(cdRemaining/60),s=cdRemaining%60;document.getElementById('cdTimer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
 function skipCooldown(){if(cdInterval)clearInterval(cdInterval);document.getElementById('cooldownModal').classList.remove('show');}
