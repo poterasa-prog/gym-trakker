@@ -48,6 +48,7 @@ body{padding-bottom:90px;max-width:500px;margin:0 auto}
 .day-card-mini-ring{width:44px;height:44px;position:relative}
 .day-card-mini-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .day-card-fill-dot{position:absolute;inset:8px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.day-card-emoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px}
 .day-card-label{font-size:10px;color:var(--text-dim);text-align:center;line-height:1.3}
 .day-card.done-day .day-card-label{color:var(--green)}
 
@@ -558,7 +559,7 @@ function renderDaysGrid(){
             stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
             transform="rotate(-90 22 22)"/>
         </svg>
-        ${allDone?`<div class="day-card-fill-dot" style="background:#4ADE80"></div>`:''}
+        ${allDone?`<div class="day-card-fill-dot" style="background:#4ADE80"></div>`:`<div class="day-card-emoji">${mDone?'☀️':'🥷'}</div>`}
       </div>
       <div class="day-card-label">${allDone?'Complet':mDone?'Dim. ✓':WD[d].title.split('/')[0].trim()}</div>
     `;
